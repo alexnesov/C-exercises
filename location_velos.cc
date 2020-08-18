@@ -15,21 +15,6 @@ int main()
    * Compléter le code à partir d'ici
    *****************************************************/
 
-	if ( (debut < 0) or (debut > 24) )
-  	{
-    	cout << "Les heures doivent être comprises entre 0 et 24 !" << endl;
-    }
-
-    if (debut == fin)
-	    {
-	    	cout << "Bizarre, vous n'avez pas loué votre vélo bien longtemps !" << endl;
-	    }
-
-    if (debut > fin)
-	    {
-	    	cout << "Bizarre, le début de la location est après la fin ..." << endl;
-		}
-
 	int h1;
 	int h2;
 
@@ -37,7 +22,22 @@ int main()
 
 	int total;
 
-    if ( not( (debut < 0) or (debut > 24) ) && not(debut == fin) && not(debut > fin) )        
+	if ( (debut < 0) or (debut > 24) or (fin < 0) or (fin > 24) )
+  	{
+    	cout << "Les heures doivent être comprises entre 0 et 24 !" << endl;
+    }
+
+    else if (debut == fin)
+	    {
+	    	cout << "Bizarre, vous n'avez pas loué votre vélo bien longtemps !" << endl;
+	    }
+
+    else if (debut > fin)
+	    {
+	    	cout << "Bizarre, le début de la location est après la fin ..." << endl;
+		}
+
+    else     
         {
             cout << "Vous avez louÃ© votre vÃ©lo pendant" << endl;
 
@@ -60,8 +60,6 @@ int main()
                 h1 = 0;
                 h2 = (fin - debut);
 
-                cout << h1 << " heure(s) au tarif horaire de "
-                    << "1 franc(s)" << endl;
                 cout << h2 << " heure(s) au tarif horaire de "
                     << "2 franc(s)" << endl;
                 }
@@ -106,8 +104,7 @@ int main()
 
                 cout << h1 << " heure(s) au tarif horaire de "
                     << "1 franc(s)" << endl;
-                cout << h2 << " heure(s) au tarif horaire de "
-                    << "2 franc(s)" << endl;    
+ 
                 }
 
         total = (h1 * 1) + (h2 * 2);
