@@ -97,7 +97,7 @@ int main()
                     << "2 franc(s)" << endl;    
                 }
 
-            if ( (debut < 7) and (fin <= 7) )
+            if ( (debut < 7) and (fin < 7) )
                 {
                 h1 = fin-debut;
                 h2 = 0;
