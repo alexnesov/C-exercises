@@ -22,12 +22,10 @@ int main()
   for(int i=debut;i<=fin;i++)
     {
         int back(0);
-        int nb_operations(0);
-        {
-        back = fin + 1 - i;
-        } 
-
         int nb_inc(0);
+        
+        back = fin + 1 - i;
+
 
         while( back != 0)
         {
