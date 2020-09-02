@@ -22,7 +22,7 @@ int main()
   for(int i=debut;i<=fin;i++)
     {
         int nb_inc(0);
-        int not_back = debut - 1 + i;
+        int not_back = i;
         
 
         while( not_back != 0)
