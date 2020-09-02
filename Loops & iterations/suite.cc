@@ -21,35 +21,32 @@ int main()
   // 1 a 7
   for(int i=debut;i<=fin;i++)
     {
-        int back(0);
         int nb_inc(0);
+        int not_back = debut - 1 + i;
         
-        back = fin + 1 - i;
 
-
-        while( back != 0)
+        while( not_back != 0)
         {
   
           nb_inc++;
   
-            if (back % 3 == 0)
+            if (not_back % 3 == 0)
               {
-                back = back + 4;
+                not_back = not_back + 4;
               }
-            else if ((back % 3 != 0) and (back % 4 == 0) )
+            else if ((not_back % 3 != 0) and (not_back % 4 == 0) )
               {
-                back = back / 2;
+                not_back = not_back / 2;
               }
             
-            else if ((back % 3 != 0) and (back % 4 != 0) )
+            else if ((not_back % 3 != 0) and (not_back % 4 != 0) )
               {
-                back = back -1;
+                not_back = not_back -1;
               }
   
-/*           cout << i << " -> " << back << "\n";
- */        }
+       }
   
-      cout << "nb_inc:" << nb_inc << endl;
+      cout << i << " -> " << nb_inc << endl;
 
     }
 
