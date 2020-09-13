@@ -147,10 +147,6 @@ int main()
                   nb_renards = 0;
                   end = i;
                   break;
-                  lapin_risk = false;
-                  lapin_ext = false;
-                  renard_risk = false;
-                  renard_ext = false;
                 }
               }
 
