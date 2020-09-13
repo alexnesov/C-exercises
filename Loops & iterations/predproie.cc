@@ -51,6 +51,38 @@ int main()
   }while(lapins_i<5);
 
 
+
+
+  // ===== PARTIE 2 =====
+  // Première simulation
+
+ for(int i=1;i<=50;i++)
+      {
+
+            {
+
+                if (init==true)
+                  {      
+                    nb_lapins = lapins_i * (1.0 + taux_croissance_lapins - taux_attaque * renards_i); 
+                    day_before = nb_lapins;
+                    nb_renards = renards_i * (1.0 + taux_attaque * lapins_i * taux_croissance_renards - taux_mortalite);
+                    init = false;
+                  }
+                else 
+                {
+                  nb_lapins = nb_lapins * (1.0 + taux_croissance_lapins - taux_attaque * nb_renards);  
+                  nb_renards = nb_renards * (1.0 + taux_attaque * day_before * taux_croissance_renards - taux_mortalite);
+                  day_before = nb_lapins;
+                }
+                  cout << "Après " << i << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
+
+            }
+      }
+
+
+    // ===== PARTIE 3 =====
+    // Variation du taux d'attaque
+
   do {
   cout << "taux d'attaque au départ en % (entre 0.5 et 6) ? " << endl;
   cin >> attaque_debut;
@@ -61,10 +93,6 @@ int main()
   cout << " et 6) ? " << endl;
   cin >> attaque_fin;
   }while((attaque_fin<1) and (attaque_fin>6));
-
-  // ===== PARTIE 2 =====
-  // Première simulation
-
 
   for(float j=attaque_debut;j<attaque_fin;j++)
   {
@@ -130,9 +158,6 @@ int main()
               }
 
       }  // LOOP I
-
-    // ===== PARTIE 3 =====
-    // Variation du taux d'attaque
 
     if (end < 50)
     {
