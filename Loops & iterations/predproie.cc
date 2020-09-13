@@ -13,8 +13,6 @@ int main()
   double taux_croissance_renards(0.008);
   double taux_mortalite(0.1);
   int duree(50);
-  int end(50);
-
 
   double renards_i(0.0);
   double lapins_i(0.0);
@@ -44,19 +42,18 @@ int main()
   cout << "Combien de renards au départ (>= 2) ? ";
   cin >> renards_i;
   }while(renards_i<2);
-
+  
   do{
   cout << "Combien de lapins au départ  (>= 5) ? ";
   cin >> lapins_i;
   }while(lapins_i<5);
 
 
-
-
   // ===== PARTIE 2 =====
   // Première simulation
+  cout <<  endl << "***** Le taux d'attaque vaut "<< taux_attaque * 100 << "%" <<  endl;
 
- for(int i=1;i<=50;i++)
+  for(int i=1;i<=50;i++)
       {
 
             {
@@ -80,19 +77,19 @@ int main()
       }
 
 
-    // ===== PARTIE 3 =====
-    // Variation du taux d'attaque
+  // ===== PARTIE 3 =====
+  // Variation du taux d'attaque
 
   do {
   cout << "taux d'attaque au départ en % (entre 0.5 et 6) ? " << endl;
   cin >> attaque_debut;
-  }while((attaque_debut<0.5) and (attaque_debut>6));
+  }while(attaque_debut<0.5 || attaque_debut>6);
 
   do {
   cout << "taux d'attaque à la fin  en % (entre ";
   cout << " et 6) ? " << endl;
   cin >> attaque_fin;
-  }while((attaque_fin<1) and (attaque_fin>6));
+  }while(attaque_fin<1 || attaque_fin>6);
 
   for(float j=attaque_debut;j<attaque_fin;j++)
   {
@@ -216,6 +213,7 @@ int main()
 
   } // LOOP J
     
+
   /*******************************************
    * Ne rien modifier après cette ligne.
    *******************************************/
