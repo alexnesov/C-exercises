@@ -38,6 +38,8 @@ int main()
   bool lapin_ext = false;
   bool renard_ext = false;
 
+  bool init = true;
+
   do {
   cout << "Combien de renards au départ (>= 2) ? ";
   cin >> renards_i;
@@ -69,35 +71,47 @@ int main()
       int end(50);
       cout <<  endl << "***** Le taux d'attaque vaut "<< j << "%" <<  endl;
       taux_attaque = j/100;
-      cout << taux_attaque << endl;
-
-
-      nb_lapins = 0;
-      nb_renards = 0;
-
-      bool lapin_risk = false;
-      bool renard_risk = false;
-      
-      bool lapin_ext = false;
-      bool renard_ext = false;
-
 
       for(int i=1;i<=50;i++)
       {
 
             {
 
-                if ((nb_renards == 0) and (nb_lapins == 0))
-                  {
+                if (init==true)
+                  {      
                     nb_lapins = lapins_i * (1.0 + taux_croissance_lapins - taux_attaque * renards_i); 
                     day_before = nb_lapins;
                     nb_renards = renards_i * (1.0 + taux_attaque * lapins_i * taux_croissance_renards - taux_mortalite);
+                    init = false;
                   }
                 else 
                 {
                   nb_lapins = nb_lapins * (1.0 + taux_croissance_lapins - taux_attaque * nb_renards);  
                   nb_renards = nb_renards * (1.0 + taux_attaque * day_before * taux_croissance_renards - taux_mortalite);
                   day_before = nb_lapins;
+                }
+
+
+                if(nb_lapins<5)
+                {
+                  lapin_risk = true;
+                }
+
+                if(nb_lapins<2)
+                {
+                  lapin_ext = true;
+                  nb_lapins = 0;
+                }
+
+                if(nb_renards<5)
+                {
+                  renard_risk = true;
+                }
+
+                if(nb_renards<2)
+                {
+                  renard_ext = true;
+                  nb_renards = 0;
                 }
 
                 if((nb_lapins <2) and (nb_renards <2))
@@ -108,32 +122,12 @@ int main()
                   nb_renards = 0;
                   end = i;
                   break;
-                }
-
-
-                if (nb_lapins <2)
-                {
-                  lapin_ext = true;
-                  nb_lapins = 0;
-                  end = i;
-                }
-                if (nb_renards <2)
-                  {
-                  renard_ext = true;
-                  nb_renards = 0;
-                  end = i;
-                  }
-                if (nb_lapins < 5)
-                {
-                  lapin_risk = true;
-                }
-                if (nb_renards < 5)
-                {
-                  renard_risk = true;
+                  lapin_risk = false;
+                  lapin_ext = false;
+                  renard_risk = false;
+                  renard_ext = false;
                 }
               }
-
-          cout << "Après " << i << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
 
       }  // LOOP I
 
@@ -148,41 +142,52 @@ int main()
     {
       cout << "Après " << duree << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
     }
+
+
+    // RENARDS
+    if (renard_risk==true)
+      {
+          cout << "Les renards ont été en voie d'extinction" << endl;
+          if (renard_ext==true)
+            {
+              cout << "et les renards ont disparu :-(" << endl;
+            }
+          else
+            {
+              cout << "mais la population est remontée ! Ouf !" << endl;
+            }
+      }
+
+
+    // LAPINS
+    if (lapin_risk==true)
+      {
+        cout << "Les lapins ont été en voie d'extinction" << endl;
+        if (lapin_ext==true)
+        {
+            cout << "et les lapins ont disparu :-(" << endl;
+        }
+        else
+        {
+            cout << "mais la population est remontée ! Ouf !" << endl;
+        }
+      }
     
 
-    if (renard_risk==true)
-    {
-      cout << "Les renards ont été en voie d'extinction" << endl;
-        if (renard_ext=false)
-        {
-          cout << "mais la population est remontée ! Ouf !" << endl;
-        }
-        else
-        {
-          cout << "et les renards ont disparu :-(" << endl;
-        }
-        
 
-    }
 
-    if (lapin_risk == true)
-    {
-      cout << "Les lapins ont été en voie d'extinction" << endl;
-        if (lapin_ext = false)
-          {
-            cout << "mais la population est remontée ! Ouf !" << endl;
-          }
-        else
-        {
-          cout << "et les lapins ont disparu :-(" << endl;
-        }
-    }
-
+    // BOTH EXTINCT
     if ((lapin_risk == false) and (renard_risk == false))
       {
         cout << "Les lapins et les renards ont des populations stables." << endl;
       }
 
+    // RE-INITILIZATIONS
+    init = true;
+    lapin_risk = false;
+    lapin_ext = false;
+    renard_risk = false;
+    renard_ext = false;
 
   } // LOOP J
     
