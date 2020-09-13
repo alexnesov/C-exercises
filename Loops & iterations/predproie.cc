@@ -13,6 +13,8 @@ int main()
   double taux_croissance_renards(0.008);
   double taux_mortalite(0.1);
   int duree(50);
+  int end(50);
+
 
   double renards_i(0.0);
   double lapins_i(0.0);
@@ -64,10 +66,22 @@ int main()
 
   for(float j=attaque_debut;j<attaque_fin;j++)
   {
-      int duration(50);
+      int end(50);
       cout <<  endl << "***** Le taux d'attaque vaut "<< j << "%" <<  endl;
       taux_attaque = j/100;
       cout << taux_attaque << endl;
+
+
+      nb_lapins = 0;
+      nb_renards = 0;
+
+      bool lapin_risk = false;
+      bool renard_risk = false;
+      
+      bool lapin_ext = false;
+      bool renard_ext = false;
+
+
       for(int i=1;i<=50;i++)
       {
 
@@ -88,24 +102,26 @@ int main()
 
                 if((nb_lapins <2) and (nb_renards <2))
                 {
-                  duration = i;
                   lapin_ext = true;
                   nb_lapins = 0;
                   renard_ext = true;
                   nb_renards = 0;
-                  continue;
+                  end = i;
+                  break;
                 }
 
 
-                if (nb_lapins <=2)
+                if (nb_lapins <2)
                 {
                   lapin_ext = true;
                   nb_lapins = 0;
+                  end = i;
                 }
-                if (nb_renards <=2)
+                if (nb_renards <2)
                   {
-                    renard_ext = true;
-                    nb_renards = 0;
+                  renard_ext = true;
+                  nb_renards = 0;
+                  end = i;
                   }
                 if (nb_lapins < 5)
                 {
@@ -121,22 +137,18 @@ int main()
 
       }  // LOOP I
 
-
-
-    
-
     // ===== PARTIE 3 =====
     // Variation du taux d'attaque
 
-    if (duration>49)
-      {
-      cout << "Après " << duree << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
-      }
+    if (end < 50)
+    {
+      cout << "Après " << end << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
+    }
     else
-      {
-        cout << "Après " << duration << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
-      }
-
+    {
+      cout << "Après " << duree << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
+    }
+    
 
     if (renard_risk==true)
     {
@@ -170,6 +182,7 @@ int main()
       {
         cout << "Les lapins et les renards ont des populations stables." << endl;
       }
+
 
   } // LOOP J
     
