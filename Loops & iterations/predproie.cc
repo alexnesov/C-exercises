@@ -27,8 +27,8 @@ int main()
   double nb_lapins(0.0);
   double day_before(0.0);
 
-  float attaque_debut(1);
-  float attaque_fin(1);
+  float attaque_debut(0.0);
+  float attaque_fin(0.0);
 
   bool lapin_risk = false;
   bool renard_risk = false;
@@ -51,9 +51,10 @@ int main()
 
   // ===== PARTIE 2 =====
   // Première simulation
+
   cout <<  endl << "***** Le taux d'attaque vaut "<< taux_attaque * 100 << "%" <<  endl;
 
-  for(int i=1;i<=50;i++)
+  for(int i=1;i<51;i++)
       {
 
             {
@@ -77,19 +78,23 @@ int main()
       }
 
 
+
   // ===== PARTIE 3 =====
   // Variation du taux d'attaque
 
   do {
-  cout << "taux d'attaque au départ en % (entre 0.5 et 6) ? " << endl;
+  cout << "taux d'attaque au départ en % (entre 0.5 et 6) ? ";
   cin >> attaque_debut;
-  }while(attaque_debut<0.5 || attaque_debut>6);
+  }while((attaque_debut<0.5) || (attaque_debut>6));
 
   do {
   cout << "taux d'attaque à la fin  en % (entre ";
-  cout << " et 6) ? " << endl;
+  cout << attaque_debut << " et 6) ? ";
   cin >> attaque_fin;
-  }while(attaque_fin<1 || attaque_fin>6);
+  }while((attaque_fin<attaque_debut) || (attaque_fin>6));
+  
+  // RE-INITILIZATION
+  init = true;
 
   for(float j=attaque_debut;j<attaque_fin;j++)
   {
@@ -97,7 +102,7 @@ int main()
       cout <<  endl << "***** Le taux d'attaque vaut "<< j << "%" <<  endl;
       taux_attaque = j/100;
 
-      for(int i=1;i<=50;i++)
+      for(int i=1;i<51;i++)
       {
 
             {
@@ -191,8 +196,6 @@ int main()
         }
       }
     
-
-
 
     // BOTH EXTINCT
     if ((lapin_risk == false) and (renard_risk == false))
