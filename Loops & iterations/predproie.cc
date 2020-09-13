@@ -27,6 +27,9 @@ int main()
   double nb_lapins(0.0);
   double day_before(0.0);
 
+  float attaque_debut(1);
+  float attaque_fin(1);
+
   bool lapin_risk = false;
   bool renard_risk = false;
   
@@ -42,82 +45,134 @@ int main()
   cout << "Combien de lapins au départ  (>= 5) ? ";
   cin >> lapins_i;
   }while(lapins_i<5);
+
+
+  do {
+  cout << "taux d'attaque au départ en % (entre 0.5 et 6) ? " << endl;
+  cin >> attaque_debut;
+  }while((attaque_debut<0.5) and (attaque_debut>6));
+
+  do {
+  cout << "taux d'attaque à la fin  en % (entre ";
+  cout << " et 6) ? " << endl;
+  cin >> attaque_fin;
+  }while((attaque_fin<1) and (attaque_fin>6));
+
   // ===== PARTIE 2 =====
   // Première simulation
 
 
-  cout <<  endl << "***** Le taux d'attaque vaut "<< taux_attaque * 100 << "%" <<  endl;
-  for(int i=1;i<=50;i++)
+  for(float j=attaque_debut;j<attaque_fin;j++)
   {
-
-    if ((nb_renards == 0) and (nb_lapins == 0))
+      int duration(50);
+      cout <<  endl << "***** Le taux d'attaque vaut "<< j << "%" <<  endl;
+      taux_attaque = j/100;
+      cout << taux_attaque << endl;
+      for(int i=1;i<=50;i++)
       {
-        nb_lapins = lapins_i * (1.0 + taux_croissance_lapins - taux_attaque * renards_i); 
-        day_before = nb_lapins;
-        nb_renards = renards_i * (1.0 + taux_attaque * lapins_i * taux_croissance_renards - taux_mortalite);
+
+            {
+
+                if ((nb_renards == 0) and (nb_lapins == 0))
+                  {
+                    nb_lapins = lapins_i * (1.0 + taux_croissance_lapins - taux_attaque * renards_i); 
+                    day_before = nb_lapins;
+                    nb_renards = renards_i * (1.0 + taux_attaque * lapins_i * taux_croissance_renards - taux_mortalite);
+                  }
+                else 
+                {
+                  nb_lapins = nb_lapins * (1.0 + taux_croissance_lapins - taux_attaque * nb_renards);  
+                  nb_renards = nb_renards * (1.0 + taux_attaque * day_before * taux_croissance_renards - taux_mortalite);
+                  day_before = nb_lapins;
+                }
+
+                if((nb_lapins <2) and (nb_renards <2))
+                {
+                  duration = i;
+                  lapin_ext = true;
+                  nb_lapins = 0;
+                  renard_ext = true;
+                  nb_renards = 0;
+                  continue;
+                }
+
+
+                if (nb_lapins <=2)
+                {
+                  lapin_ext = true;
+                  nb_lapins = 0;
+                }
+                if (nb_renards <=2)
+                  {
+                    renard_ext = true;
+                    nb_renards = 0;
+                  }
+                if (nb_lapins < 5)
+                {
+                  lapin_risk = true;
+                }
+                if (nb_renards < 5)
+                {
+                  renard_risk = true;
+                }
+              }
+
+          cout << "Après " << i << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
+
+      }  // LOOP I
+
+
+
+    
+
+    // ===== PARTIE 3 =====
+    // Variation du taux d'attaque
+
+    if (duration>49)
+      {
+      cout << "Après " << duree << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
       }
-    else 
+    else
       {
-        nb_lapins = nb_lapins * (1.0 + taux_croissance_lapins - taux_attaque * nb_renards);  
-        nb_renards = nb_renards * (1.0 + taux_attaque * day_before * taux_croissance_renards - taux_mortalite);
-        day_before = nb_lapins;
-    }
-  }
-
-    if (nb_lapins <=0)
-      {
-        lapin_ext = true;
-        nb_lapins = 0;
-      }
-    if (nb_renards <=0)
-      {
-        renard_ext = true;
-        nb_renards = 0;
+        cout << "Après " << duration << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
       }
 
-  // ===== PARTIE 3 =====
-  // Variation du taux d'attaque
 
-  cout << "Après " << duree << " mois, il y a " << nb_lapins << " lapins et " << nb_renards << " renards" << endl;
-
-
-  cout << "taux d'attaque au départ en % (entre 0.5 et 6) ? " << endl;
-
-  cout << "taux d'attaque à la fin  en % (entre ";
-  cout << " et 6) ? " << endl;
-
-  if (renard_risk==true)
-  {
-    cout << "Les renards ont été en voie d'extinction" << endl;
-      if (renard_ext=false)
-      {
-        cout << "mais la population est remontée ! Ouf !" << endl;
-      }
-      else
-      {
-        cout << "et les renards ont disparu :-(" << endl;
-      }
-  }
-
-  if (lapin_risk == true)
-  {
-    cout << "Les lapins ont été en voie d'extinction" << endl;
-      if (lapin_ext = false)
+    if (renard_risk==true)
+    {
+      cout << "Les renards ont été en voie d'extinction" << endl;
+        if (renard_ext=false)
         {
           cout << "mais la population est remontée ! Ouf !" << endl;
         }
-      else
+        else
+        {
+          cout << "et les renards ont disparu :-(" << endl;
+        }
+        
+
+    }
+
+    if (lapin_risk == true)
+    {
+      cout << "Les lapins ont été en voie d'extinction" << endl;
+        if (lapin_ext = false)
+          {
+            cout << "mais la population est remontée ! Ouf !" << endl;
+          }
+        else
         {
           cout << "et les lapins ont disparu :-(" << endl;
         }
-  }
-
-  if ((lapin_risk == false) and (renard_risk == false))
-    {
-      cout << "Les lapins et les renards ont des populations stables." << endl;
     }
 
+    if ((lapin_risk == false) and (renard_risk == false))
+      {
+        cout << "Les lapins et les renards ont des populations stables." << endl;
+      }
 
+  } // LOOP J
+    
   /*******************************************
    * Ne rien modifier après cette ligne.
    *******************************************/
