@@ -19,16 +19,18 @@ int separer_chiffre_gauche(int& nombre)
 int chiffre(0);
 int tempone(0);
 int old_left;
+int newnew;
 
 
 void ajouter_chiffre_droit(int& nombre, int chiffre)
 {
-  cout << "vierge: " << nombre << endl;
-  nombre = nombre *10 + tempone * 10 + old_left;
+  newnew = tempone * 10 + old_left;
+  cout << "NEW NEW : " << newnew << endl;
 }
 
 void dire_chiffre(int& nombre, int repetitions_chiffre, int chiffre)
 { 
+  nombre = lire_et_dire(nombre);
 }
 
 int lire_et_dire(int nombre)
@@ -41,6 +43,7 @@ int lire_et_dire(int nombre)
     new_left = separer_chiffre_gauche(nombre);
     tempone = tempone +1;
   }while (new_left == old_left);
+
 
 
   cout << "chiffre old :" << old_left << endl;
