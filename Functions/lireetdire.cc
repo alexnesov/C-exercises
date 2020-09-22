@@ -48,7 +48,7 @@ int lire_et_dire(int nombre)
   {
     cout << endl;
     cout << endl;
-    
+
     if(init==true)
     {
           temp2 = separer_chiffre_gauche(nombre);
@@ -85,17 +85,30 @@ int lire_et_dire(int nombre)
         }
         else
         {
-            dire_chiffre(nombre,repetitions_chiffre,chiffre=temp3);
+            chiffre = temp3;
+            dire_chiffre(nombre,repetitions_chiffre,chiffre);
         }
         
         // Re-initilization
         repetitions_chiffre = 1;
         previous_multiple = false;
     }
-        
+    
+    cout << "previous multiple : " << previous_multiple << endl;
     cout << "TEMP 3 : " << temp3 << endl;
   }
 
+
+  if(previous_multiple==true)
+  {
+      dire_chiffre(nombre,repetitions_chiffre,chiffre=memory);
+      
+  }
+  else
+  {
+      chiffre = temp3;
+      dire_chiffre(nombre,repetitions_chiffre,chiffre);
+  }
   return resultat;
 }
 
