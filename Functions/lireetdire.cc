@@ -19,11 +19,10 @@ int separer_chiffre_gauche(int& nombre)
 
 int temp2;
 int temp3;
-int repeated;
-bool repeated_act();
 int resultat(0);
 int chiffre;
 int repetitions_chiffre(1);
+bool init(true);
 
 void ajouter_chiffre_droit(int& nombre, int chiffre)
 {
@@ -34,6 +33,9 @@ void dire_chiffre(int& nombre, int repetitions_chiffre, int chiffre)
 {
   resultat = resultat * 10 + repetitions_chiffre;
   ajouter_chiffre_droit(nombre, chiffre);
+
+  // Re-initilization
+  repetitions_chiffre = 0;
 }
 
 int lire_et_dire(int nombre)
@@ -43,24 +45,30 @@ int lire_et_dire(int nombre)
 
   while(nombre!=0)
   {
+
     temp2 = separer_chiffre_gauche(nombre);
     temp3 = separer_chiffre_gauche(nombre);
-    
+      
     if (temp2==temp3)
+    {
+      cout << "rep test" << repetitions_chiffre << endl;
+      repetitions_chiffre++;
+    }
+
+    if (temp3==temp2)
     {
       repetitions_chiffre++;
     }
     else
     {
       chiffre=temp2;
+      cout << "test" << endl;
       dire_chiffre(nombre, repetitions_chiffre, chiffre);
     }
     
     cout << "TEMP2: " << temp2 << endl;
     cout << "TEMP3: " << temp3 << endl;
   }
-
-  cout << repetitions_chiffre << endl;
 
   return resultat;
 }
