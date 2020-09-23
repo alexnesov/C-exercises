@@ -19,8 +19,10 @@ int separer_chiffre_gauche(int& nombre)
 
 int repetition;
 int resultat;
+int chiffre_init;
 int chiffre;
 int new_chiffre;
+bool init = true;
 
 void ajouter_chiffre_droit(int& nombre, int chiffre)
 {
@@ -36,24 +38,39 @@ void dire_chiffre(int& nombre, int repetitions_chiffre, int chiffre)
 
 int lire_et_dire(int nombre)
 {
-
+  bool re_init =false;
   chiffre = separer_chiffre_gauche(nombre);
 
   do
   {
+
+    if(re_init==true)
+    {
+      chiffre = separer_chiffre_gauche(nombre);
+    }
+
     do
     {
       new_chiffre = separer_chiffre_gauche(nombre);
       repetition++;
     } while (chiffre==new_chiffre);
 
+    // if multiple
+    // if not multiple
+
+    cout << "nombre: " << nombre;
+    cout << endl;
     cout << "repetition(s) : " << repetition << endl;
     dire_chiffre(nombre, repetition,chiffre);
+    dire_chiffre(nombre, repetition,chiffre=new_chiffre);
+
+    // Re-initilizations
+    repetition=1;
+    re_init=true;
+
 
   } while (nombre!=0);
   
-  dire_chiffre(nombre, repetition,chiffre);
-
   return resultat;
 
 }
