@@ -6,8 +6,8 @@ int annee;
 int demander_annee()
 {
     
-    cout << "Entrez une annee (1583-4000) : ";
     do{
+    cout << "Entrez une annee (1583-4000) : ";
     cin >> annee;
     }while((annee<1583) || (annee>4000) );
     return annee;
