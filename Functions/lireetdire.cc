@@ -131,7 +131,6 @@ int lire_et_dire(int nombre)
 
   return resultat;
 }
-
 /*******************************************
  * Ne rien modifier après cette ligne.
  *******************************************/
