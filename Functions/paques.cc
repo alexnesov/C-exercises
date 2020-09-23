@@ -15,7 +15,7 @@ int demander_annee()
     return annee;
 }
 
-void affiche_date(int annee,int nb_jours)
+void affiche_date(int annee,int e)
 {
 
     cout << "Date de Paques en " << annee << ":" << endl;
@@ -32,6 +32,8 @@ int date_Paques(int annee)
     int d;
     int e;
 
+    int temp;
+
     siecle = annee/100;
     p = (13 + 8 * siecle)/25;
     q = siecle/4;
@@ -40,15 +42,23 @@ int date_Paques(int annee)
     d = (M + 19*(annee%19))%30;
     e = (2 * (annee % 4) + 4 * (annee % 7) + 6 * d + N) % 7;
     
+    temp = (11*(M+1))%30;
+
+    if((e==6) && ( (d==29) || ((d==28) && (temp<19) ) ) ) 
+    {
+        e = e-7;
+    }
+
     return e;
 
 }
 
 int main()
-{
+{   
+    int e;
     int annee;
 
     demander_annee();
-    date_Paques(annee);
-    affiche_date(annee, nb_jours);
+    e = date_Paques(annee);
+    affiche_date(annee,e);
 }
