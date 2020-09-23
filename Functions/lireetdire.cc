@@ -17,98 +17,118 @@ int separer_chiffre_gauche(int& nombre)
  * Compléter le code à partir d'ici
  *****************************************************/
 
-int resultat(0);
-
+int n1;
+int n2;
+int repetitions_chiffre(1);
+int resultat;
+int diff;
+int single_digit;
+int chiffre;
 
 void ajouter_chiffre_droit(int& nombre, int chiffre)
 {
-  resultat = resultat * 10 + chiffre;
-}
+   resultat = resultat * 10 + chiffre;
+ }
 
 void dire_chiffre(int& nombre, int repetitions_chiffre, int chiffre)
 {
-  resultat = resultat * 10 + repetitions_chiffre;
-  ajouter_chiffre_droit(nombre, chiffre);
+    cout << "chiffre dans dire_chiffre: " << chiffre << endl;
+    resultat = resultat * 10 + repetitions_chiffre;
+    ajouter_chiffre_droit(nombre,chiffre);
 }
+
 
 int lire_et_dire(int nombre)
 {
 
-
-  int temp2;
-  int temp3;
-  int diff;
-  int memory;
-  int chiffre;
-  int repetitions_chiffre(1);
-  bool init = true;
-  bool previous_multiple = false;
-
-  while(nombre!=0)
+  cout << endl;
+  cout << "PROGRAM: " <<endl;
+  ////////////////////////
+  single_digit = nombre/10;
+  if(single_digit<1)
   {
-    cout << endl;
-    cout << endl;
-
-    if(init==true)
-    {
-          temp2 = separer_chiffre_gauche(nombre);
-          cout << "TEMP2: " << temp2 << endl;
-
-          temp3 = separer_chiffre_gauche(nombre);
-          cout << "TEMP3: " << temp3 << endl;
-
-          init = false;
-    }
-    else
-    {
-          temp2 = temp3;
-          temp3 = separer_chiffre_gauche(nombre);
-    }
-
-    cout << "INIT : " << init << endl;
-    diff = temp3 - temp2;
-    cout << "diff : " << diff << endl;
-
-
-    if(diff==0)
-    {
-        previous_multiple = true;
-        memory = temp2;
-        repetitions_chiffre++;
-    }
-    else
-    {
-        if(previous_multiple==true)
-        {
-            dire_chiffre(nombre,repetitions_chiffre,chiffre=memory);
-            
-        }
-        else
-        {
-            chiffre = temp3;
-            dire_chiffre(nombre,repetitions_chiffre,chiffre);
-        }
-        
-        // Re-initilization
-        repetitions_chiffre = 1;
-        previous_multiple = false;
-    }
-    
-    cout << "previous multiple : " << previous_multiple << endl;
-    cout << "TEMP 3 : " << temp3 << endl;
-  }
-
-
-  if(previous_multiple==true)
-  {
-      dire_chiffre(nombre,repetitions_chiffre,chiffre=memory);
-      
+    single_digit=true;
   }
   else
   {
-      chiffre = temp3;
-      dire_chiffre(nombre,repetitions_chiffre,chiffre);
+    single_digit=false;
   }
+  ////////////////////////
+
+  if(single_digit==true)
+  {
+    dire_chiffre(nombre,repetitions_chiffre=1,chiffre=nombre);
+  }
+  else
+  { 
+    chiffre = separer_chiffre_gauche(nombre);
+    cout << "chiffre : " << chiffre << endl;
+    cout << "nombre : " << nombre << endl;
+        
+         while (nombre!=0)
+         {
+          n2 = separer_chiffre_gauche(nombre);
+          cout << "N2 : " << n2 << endl;
+
+          if(n2==chiffre)
+            {
+              cout << endl;
+              cout << " A " << endl; 
+              cout << "repetitions: " << repetitions_chiffre << endl;
+              cout << "chiffre : " << chiffre << endl;
+              cout << "N2 : " << n2 << endl;
+
+              repetitions_chiffre++;
+              chiffre=n2;
+            }
+          else
+            {
+              cout << endl;
+              cout << " B " << endl; 
+              cout << "repetitions: " << repetitions_chiffre << endl;
+              cout << "chiffre : " << chiffre << endl;
+              cout << "N2 : " << n2 << endl;
+
+              dire_chiffre(nombre,repetitions_chiffre,chiffre);
+              repetitions_chiffre = 1;
+
+              cout << "Résultat : " << resultat << endl;
+
+            }
+         }
+
+          cout << endl;
+          // Last loop, because we'll need it eventhough h will be be equal to 0          
+          if(n2==chiffre)
+            {
+              cout << endl;
+              cout << " C " << endl; 
+              cout << "repetitions: " << repetitions_chiffre << endl;
+              cout << "chiffre : " << chiffre << endl;
+              cout << "N2 : " << n2 << endl;
+
+              repetitions_chiffre++;
+              chiffre=n2;
+            }
+          else
+            {
+              cout << endl;
+              cout << " D " << endl; 
+              cout << "repetitions: " << repetitions_chiffre << endl;
+              cout << "chiffre : " << chiffre << endl;
+              cout << "N2 : " << n2 << endl;
+
+              dire_chiffre(nombre,repetitions_chiffre,chiffre=n2);
+              repetitions_chiffre = 1;
+
+              cout << "Résultat : " << resultat << endl;
+
+            }
+          ////////////////////////////////////////////////////
+
+  }
+  
+
   return resultat;
 }
 
