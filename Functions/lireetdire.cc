@@ -58,14 +58,20 @@ int lire_et_dire(int nombre)
     // if multiple
     // if not multiple
 
+ 
     cout << "nombre: " << nombre;
     cout << endl;
     cout << "repetition(s) : " << repetition << endl;
     dire_chiffre(nombre, repetition,chiffre);
-    dire_chiffre(nombre, repetition,chiffre=new_chiffre);
+    
+    if(new_chiffre!=0)
+    {
+      dire_chiffre(nombre, repetition,chiffre=new_chiffre);
+    }
 
     // Re-initilizations
-    repetition=1;
+    repetition=0;
+    chiffre=0;
     re_init=true;
 
 
