@@ -15,11 +15,11 @@ std::default_random_engine generateur(time(NULL)); /* NOT using std::random_devi
 
 char tirer_couleur()
 {
-  static const char* const couleurs = ".RGBCYM";
+  static const char *const couleurs = ".RGBCYM";
   static const int nb = strlen(couleurs) - 1;
 
   return couleurs[distribution(generateur,
-                               std::uniform_int_distribution<int>::param_type {0, nb})];
+                               std::uniform_int_distribution<int>::param_type{0, nb})];
 }
 
 // ======================================================================
@@ -38,12 +38,13 @@ bool couleur_valide(char c);
 char lire_couleur()
 {
   char lu(poser_question());
-  while (not couleur_valide(lu)) {
+  while (not couleur_valide(lu))
+  {
     cout << "'" << lu << "' n'est pas une couleur valide." << endl;
     cout << "Les couleurs possibles sont : ., R, G, B, C, Y ou M." << endl;
     lu = poser_question();
   }
-  
+
   return lu;
 }
 
@@ -56,7 +57,8 @@ void afficher_couleurs(char c1, char c2, char c3, char c4)
 // ======================================================================
 void afficher(int nb, char c)
 {
-  while (nb-- > 0) {
+  while (nb-- > 0)
+  {
     cout << c;
   }
 }
@@ -98,21 +100,27 @@ void message_perdu(char c1, char c2, char c3, char c4)
 // ======================================================================
 bool couleur_valide(char c)
 {
-  bool nothing0 = true;
-  return nothing0;
+  if ((c == 'R') || (c == 'G') || (c == 'B') || (c == 'C') || (c == 'Y') || (c == 'M') || (c == '.'))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 // ======================================================================
-bool verifier(// A remplir
-             )
+bool verifier( // A remplir
+)
 {
   bool nothing1 = true;
   return nothing1;
 }
 
 // ======================================================================
-void apparier(// A remplir
-             )
+void apparier( // A remplir
+)
 {
 }
 
@@ -131,11 +139,11 @@ bool gagne(char c1, char c2, char c3, char c4,
 }
 
 // ======================================================================
-void jouer(// A remplir
-          )
+void jouer( // A remplir
+)
 {
-  poser_question();
-
+  char c1, c2, c3, c4, r1, r2, r3, r4;
+  lire_couleur();
 }
 
 /*******************************************
