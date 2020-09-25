@@ -57,9 +57,13 @@ void afficher_couleurs(char c1, char c2, char c3, char c4)
 // ======================================================================
 void afficher(int nb, char c)
 {
+
   while (nb-- > 0)
   {
-    cout << c;
+
+    // existing
+
+    cout << c; // ~
   }
 }
 
@@ -97,6 +101,8 @@ void message_perdu(char c1, char c2, char c3, char c4)
  * Compléter le code à partir d'ici
  *****************************************************/
 
+int score(0);
+
 // ======================================================================
 bool couleur_valide(char c)
 {
@@ -111,11 +117,11 @@ bool couleur_valide(char c)
 }
 
 // ======================================================================
-bool verifier(char c1, char r1, int& score)
+bool verifier(char c, char r1, int& score)
 {
    if(c1==r1)
   {
-    score = score +1;
+    score++;
     return true;
   }
   else
@@ -125,11 +131,16 @@ bool verifier(char c1, char r1, int& score)
 }
 
 // ======================================================================
-void apparier(char lu, char r1, char r2, char r3, int& score)
+void apparier(char c, char& r1, char& r2, char& r3, int& score)
 {
   bool veri;
 
-  veri = verifier(lu, r1, score);
+  veri = verifier(c, r1, score);
+
+  if(veri==true)
+  {
+    score++;
+  }
 
 }
 
@@ -137,13 +148,39 @@ void apparier(char lu, char r1, char r2, char r3, int& score)
 void afficher_reponses(char c1, char c2, char c3, char c4,
                        char r1, char r2, char r3, char r4)
 {
+  int nb;
+  char c;
+
+  char plus = '+';
+  char hash = '#'; //well positionned
+
+
+    if(c1==r1)
+      {
+        cout << hash << endl;
+      }
+    else if(c2==r2)
+      {
+        cout << hash << endl;
+      }
+    else if(c3==r3)
+      {
+        cout << hash << endl;
+      }
+    else if(c4==r4)
+      {
+        cout << hash << endl;
+      }
+
+  apparier(c, r1, r2, r3, score);
+  afficher(nb=4,c);
+
 }
 
 // ======================================================================
 bool gagne(char c1, char c2, char c3, char c4,
            char r1, char r2, char r3, char r4)
 {
-  bool nothing2 = true;
   return false;
 }
 
@@ -162,8 +199,6 @@ void jouer(int coups=8)
   char r4;
 
   bool verifier_bool;
-  int score(0);
-  int apparier_nombre(0);
   bool win(false); 
 
   r0 = tirer_couleur();
@@ -178,12 +213,21 @@ void jouer(int coups=8)
     cout << "Coups restants : " << coups << endl;
 
     c1 = lire_couleur();
+    c2 = lire_couleur();
+    c3 = lire_couleur();
+    c4 = lire_couleur();
+
     coups--;
     verifier_bool = verifier(c1, r1, score);
-    win = gagne(c1, c2, c3, c4, r1, r2, r3, r4);
+
+    win = gagne(c1, c2, c3, c4,
+          r1, r2, r3, r4);
+
+    afficher_coup(c1, c2, c3, c4,
+                   r1, r2, r3, r4);
 
     // Personnal verification
-    cout << "Verification : " << verifier_bool << endl;
+    // cout << "Verification : " << verifier_bool << endl;
     cout << "Score : " << score << endl;
     cout << "r1 : " << r1 << endl;
     cout << "r2 : " << r2 << endl;
