@@ -111,11 +111,18 @@ bool couleur_valide(char c)
 }
 
 // ======================================================================
-bool verifier( // A remplir
-)
+bool verifier(char C)
 {
-  bool nothing1 = true;
-  return nothing1;
+/*   if(C==)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+   */
+  return true;
 }
 
 // ======================================================================
@@ -143,7 +150,13 @@ void jouer( // A remplir
 )
 {
   char c1, c2, c3, c4, r1, r2, r3, r4;
-  lire_couleur();
+  char lu;
+  char coul;
+
+  coul = tirer_couleur();
+  lu = lire_couleur();
+  cout << "Couleur : " << coul << endl;
+
 }
 
 /*******************************************
