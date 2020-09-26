@@ -138,15 +138,8 @@ void apparier(char c, char& r1, char& r2, char& r3, int& nb)
   verif2 = verifier(c, r2, nb);
   verif3 = verifier(c, r3, nb);
 
-  if(verif1)
-  {
-    nb++;
-  }
-  else if(verif2)
-  {
-    nb++;
-  }
-  else if(verif3)
+
+  if((verif1==true) || (verif2==true) || (verif3==true))
   {
     nb++;
   }
@@ -161,9 +154,9 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   bool verif_c2;
   bool verif_c3;
   bool verif_c4;
-  int score(0);  // verifier
-  int nb(0);     // apparier
-  char c;
+  int score(0);         // verifier
+  int nb(0);            // apparier
+  int remaining_dash(0);    
 
   verif_c1 = verifier(c1, r1, score);
   verif_c2 = verifier(c2, r2, score);
@@ -190,7 +183,7 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
 
   // # 
   char hash = '#';
-  afficher(score, c=hash);
+  afficher(score, hash);
 
   // + 
   // pour chacune des couleurs proposees qui n'etaient pas bien placees,
@@ -209,17 +202,25 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   {
     apparier(c3, r1, r2, r4, nb);
   }
-  if(verif_c4)
+  if(verif_c4!=true)
   {
     apparier(c4, r1, r2, r3, nb);
   }
 
 
-  afficher(nb, c=plus);
+  afficher(nb, plus);
+
 
   // -
   char dash = '-';
-  afficher(nb=(4-nb-score),dash);
+  remaining_dash = 4-nb-score;
+  afficher(remaining_dash,dash);
+
+
+/*   cout << endl;
+  cout << "NB : " << nb << endl;
+  cout << "SCORE : " << score << endl;
+
 
   cout << endl;
   cout << "r1 : " << r1 << endl;
@@ -228,8 +229,7 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   cout << "r4 : " << r4 << endl;
  
 
-  cout << endl;
-  cout << "SCORE : " << score << endl;
+  cout << endl; */
 
   // re-init
   score=0;
@@ -285,20 +285,20 @@ void jouer(int coups=8)
   r3_temp = r3;
   r4_temp = r4;
   ////////////////////////
-
+  coups--;
   while((win==false) && (coups>=0))
   {
-
+  
   c1 = lire_couleur();
   c2 = lire_couleur();
   c3 = lire_couleur();
   c4 = lire_couleur();
 
-  cout << "c1 : " << c1 << endl;
+/*   cout << "c1 : " << c1 << endl;
   cout << "c2 : " << c2 << endl;
   cout << "c3 : " << c3 << endl;
   cout << "c4 : " << c4 << endl; 
-  cout << endl; 
+  cout << endl;  */
 
   afficher_coup(c1, c2, c3, c4,
                    r1, r2, r3, r4);
@@ -316,7 +316,7 @@ void jouer(int coups=8)
   coups--;
   }
 
-  coups_effectues = coups_init-coups;
+  coups_effectues = coups_init-coups-1;
 
 
   if(win==true)
