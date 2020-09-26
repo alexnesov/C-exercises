@@ -122,14 +122,17 @@ bool verifier(char c, char& r, int& score)
   char hash = '#'; // existing
   char x = 'x';
 
-  int nb(0);
+  int nb(1);
+
 
   if(c==r)
   {
     // marquer couleurs
     score++;
-    nb++;
     r = x;
+
+
+    afficher(nb, hash);
     return true;
   }
   else
@@ -137,7 +140,7 @@ bool verifier(char c, char& r, int& score)
     return false;
   }
 
-  afficher(nb, hash);
+  
 }
 
 // ======================================================================
@@ -246,6 +249,18 @@ void jouer(int coups=8)
     cout << "r4 : " << r4 << endl;
     cout << endl;
 
+    // Temp storages
+
+    char r1_temp;
+    char r2_temp;
+    char r3_temp;
+    char r4_temp; 
+
+    r1_temp = r1;
+    r2_temp = r2;
+    r3_temp = r3;
+    r4_temp = r4;
+
     coups--;
     cout << "Coups restants : " << coups << endl;
 
@@ -272,8 +287,11 @@ void jouer(int coups=8)
     cout << "c4 : " << c4 << endl;
 
     // Re-initilizations
-
     score = 0;
+    r1 = r1_temp;
+    r2 = r2_temp;
+    r3 = r3_temp;
+    r4 = r4_temp;
 
   } while((win==false) && (coups>=0));
 
