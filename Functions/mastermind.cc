@@ -15,11 +15,11 @@ std::default_random_engine generateur(time(NULL)); /* NOT using std::random_devi
 
 char tirer_couleur()
 {
-  static const char *const couleurs = ".RGBCYM";
+  static const char* const couleurs = ".RGBCYM";
   static const int nb = strlen(couleurs) - 1;
 
   return couleurs[distribution(generateur,
-                               std::uniform_int_distribution<int>::param_type{0, nb})];
+                               std::uniform_int_distribution<int>::param_type {0, nb})];
 }
 
 // ======================================================================
@@ -38,13 +38,11 @@ bool couleur_valide(char c);
 char lire_couleur()
 {
   char lu(poser_question());
-  while (not couleur_valide(lu))
-  {
+  while (not couleur_valide(lu)) {
     cout << "'" << lu << "' n'est pas une couleur valide." << endl;
     cout << "Les couleurs possibles sont : ., R, G, B, C, Y ou M." << endl;
     lu = poser_question();
   }
-
   return lu;
 }
 
@@ -57,10 +55,8 @@ void afficher_couleurs(char c1, char c2, char c3, char c4)
 // ======================================================================
 void afficher(int nb, char c)
 {
-
-  while (nb-- > 0)
-  {
-    cout << c; 
+  while (nb-- > 0) {
+    cout << c;
   }
 }
 
@@ -98,10 +94,6 @@ void message_perdu(char c1, char c2, char c3, char c4)
  * Compléter le code à partir d'ici
  *****************************************************/
 
-int score(0);
-
-
-
 // ======================================================================
 bool couleur_valide(char c)
 {
@@ -117,21 +109,14 @@ bool couleur_valide(char c)
 
 // ======================================================================
 bool verifier(char c, char& r, int& score)
-{   
-  char hash = '#'; // existing
+{
   char x = 'x';
-
-  int nb(0);
-
 
   if(c==r)
   {
     // marquer couleurs
     score++;
-    nb++;
     r = x;
-    
-    afficher(nb, hash);
     return true;
   }
   else
@@ -139,86 +124,109 @@ bool verifier(char c, char& r, int& score)
     return false;
   }
 
-  
+
+
 }
 
 // ======================================================================
-void apparier(char c, char& r1, char& r2, char& r3, char& r4, int& score)
+void apparier(char c, char& r1, char& r2, char& r3, int& nb)
 {
-  char plus = '+'; // well positionned
+  bool verif1;
+  bool verif2;
+  bool verif3;
+
   char x = 'x';
 
-  int nb(0);
+  verif1 = verifier(c,r1,nb);
+  verif2 = verifier(c, r2, nb);
+  verif3 = verifier(c, r3, nb);
 
-
-  if(c==r1)
+  if(verif1)
   {
-    score++;
     nb++;
     r1 = x;
   }
-  else if (c==r2)
+  else if(verif2)
   {
-    score++;
     nb++;
     r2 = x;
   }
-  else if (c==r3)
+  else if(verif3)
   {
-    score++;
     nb++;
     r3 = x;
   }
-  else if (c==r4)
-  {
-    score++;
-    nb++;
-    r4 = x;
-  }
-  
-  afficher(nb, plus);
+
 }
 
 // ======================================================================
 void afficher_reponses(char c1, char c2, char c3, char c4,
                        char r1, char r2, char r3, char r4)
 {
+  bool verif_c1;
+  bool verif_c2;
+  bool verif_c3;
+  bool verif_c4;
+  int score;  // verifier
+  int nb;     // apparier
+  char c;
 
-    char dash = '-';
-    int final_score(0);
+  verif_c1 = verifier(c1, r1, score);
+  verif_c2 = verifier(c2, r2, score);
+  verif_c3 = verifier(c3, r3, score);
+  verif_c4 = verifier(c4, r4, score);
+  
+  // # 
+  char hash = '#';
+  afficher(score, c=hash);
 
-    bool verif_c1;
-    bool verif_c2;
-    bool verif_c3;
-    bool verif_c4;
+  // + 
+  // pour chacune des couleurs proposees qui n'etaient pas bien placees,
+  // chercher a l'aide de la fonction apparier si elle s'apparie avec un des trois autres couleurs
+  char plus = '+';
 
-    verif_c1 = verifier(c1, r1, score);
-    verif_c2 = verifier(c2, r2, score);
-    verif_c3 = verifier(c3, r3, score);
-    verif_c4 = verifier(c4, r4, score);
+  if(verif_c1!=true)
+  {
+    apparier(c1, r2, r3, r4, nb);
+  }
+  else if(verif_c2!=true)
+  {
+    apparier(c2, r1, r3, r4, nb);
+  }
+  else if(verif_c3!=true)
+  {
+    apparier(c3, r1, r2, r4, nb);
+  }
+  else if(verif_c4)
+  {
+    apparier(c4, r1, r2, r3, nb);
+  }
 
-    apparier(c1, r1, r2, r3, r4, score);
-    apparier(c2, r1, r2, r3, r4, score);
-    apparier(c3, r1, r2, r3, r4, score);
-    apparier(c4, r1, r2, r3, r4, score);
 
-    final_score = 4 - score;
-    afficher(final_score, dash);
+  afficher(nb, c=plus);
+
+  // -
+  char dash = '-';
+  afficher(nb=(4-nb-score),dash);
+
+  cout << endl;
+/*   cout << "r1 : " << r1 << endl;
+  cout << "r2 : " << r2 << endl;
+  cout << "r3 : " << r3 << endl;
+  cout << "r4 : " << r4 << endl;
+ */
 
 
- 
-    cout << endl;
-    cout << "r1 : " << r1 << endl;
-    cout << "r2 : " << r2 << endl;
-    cout << "r3 : " << r3 << endl;
-    cout << "r4 : " << r4 << endl;
-
+  // re-init
+  score=0;
+  nb=0;
 }
 
 // ======================================================================
 bool gagne(char c1, char c2, char c3, char c4,
-           char& r1, char& r2, char& r3, char& r4)
+           char r1, char r2, char r3, char r4)
 {
+
   if( (c1==r1) && (c2==r2) && (c3==r3) && (c4==r4) )
   {
     return true;
@@ -227,91 +235,77 @@ bool gagne(char c1, char c2, char c3, char c4,
   {
     return false;
   }
-  
 }
 
 // ======================================================================
 void jouer(int coups=8)
 {
-  // c = user  r = reference color, randomly generated by the program
+  bool win(false); 
+  
+  int coups_init(coups);
+  int coups_effectues(0);
+
   char c1; 
   char c2; 
   char c3; 
   char c4;
 
-  char r0;
   char r1; 
   char r2; 
   char r3; 
   char r4;
 
-  bool verifier_bool;
-  bool win(false); 
-
-  int coups_init(coups);
-  int coups_effectues(0);
-
-  r0 = tirer_couleur();
   r1 = tirer_couleur();
   r2 = tirer_couleur();
   r3 = tirer_couleur();
-  r4 = tirer_couleur();
- 
-  do
+  r4 = tirer_couleur();  
+
+  //// Temporary storages
+  char r1_temp;
+  char r2_temp;
+  char r3_temp;
+  char r4_temp; 
+  
+  r1_temp = r1;
+  r2_temp = r2;
+  r3_temp = r3;
+  r4_temp = r4;
+  ////////////////////////
+
+  while((win==false) && (coups>=0))
   {
 
-    c1 = lire_couleur();
-    c2 = lire_couleur();
-    c3 = lire_couleur();
-    c4 = lire_couleur();
+  c1 = lire_couleur();
+  c2 = lire_couleur();
+  c3 = lire_couleur();
+  c4 = lire_couleur();
 
-    //// Temporary storages
-    char r1_temp;
-    char r2_temp;
-    char r3_temp;
-    char r4_temp; 
-    
-    r1_temp = r1;
-    r2_temp = r2;
-    r3_temp = r3;
-    r4_temp = r4;
-    ////////////////////////
-    
-    coups--;
-    cout << "Coups restants : " << coups << endl;
+/*   cout << "c1 : " << c1 << endl;
+  cout << "c2 : " << c2 << endl;
+  cout << "c3 : " << c3 << endl;
+  cout << "c4 : " << c4 << endl; 
+  cout << endl; */
 
-  
-   afficher_coup(c1, c2, c3, c4,
+  afficher_coup(c1, c2, c3, c4,
                    r1, r2, r3, r4);
 
-    // Personnal verification
-    // cout << "Verification : " << verifier_bool << endl;
- 
-    cout << "c1 : " << c1 << endl;
-    cout << "c2 : " << c2 << endl;
-    cout << "c3 : " << c3 << endl;
-    cout << "c4 : " << c4 << endl;
 
-    cout << endl;
-
-
-    cout << "SCORE : " << score << endl;
-
-    // Re-initilizations
-    score = 0;
-    r1 = r1_temp;
-    r2 = r2_temp;
-    r3 = r3_temp;
-    r4 = r4_temp;
-
-    win = gagne(c1, c2, c3, c4,
+  win = gagne(c1, c2, c3, c4,
           r1, r2, r3, r4);
 
-  } while((win==false) && (coups>=0));
+
+  // Re-initilizations
+  r1 = r1_temp;
+  r2 = r2_temp;
+  r3 = r3_temp;
+  r4 = r4_temp;
+  coups--;
+  }
 
   coups_effectues = coups_init-coups;
 
-  if((win==true))
+
+  if(win==true)
   {
     message_gagne(coups_effectues);
   }
@@ -321,7 +315,6 @@ void jouer(int coups=8)
     message_perdu(c1=r1, c2=r2, c3=r3, c4=r4);
   }
 
-  
 }
 
 /*******************************************
