@@ -122,7 +122,7 @@ bool verifier(char c, char& r, int& score)
   char hash = '#'; // existing
   char x = 'x';
 
-  int nb(1);
+  int nb(0);
 
 
   if(c==r)
@@ -241,26 +241,19 @@ void jouer(int coups=8)
     c2 = lire_couleur();
     c3 = lire_couleur();
     c4 = lire_couleur();
-    
-    cout << endl;
-    cout << "r1 : " << r1 << endl;
-    cout << "r2 : " << r2 << endl;
-    cout << "r3 : " << r3 << endl;
-    cout << "r4 : " << r4 << endl;
-    cout << endl;
 
-    // Temp storages
-
+    //// Temporary storages
     char r1_temp;
     char r2_temp;
     char r3_temp;
     char r4_temp; 
-
+    
     r1_temp = r1;
     r2_temp = r2;
     r3_temp = r3;
     r4_temp = r4;
-
+    ////////////////////////
+    
     coups--;
     cout << "Coups restants : " << coups << endl;
 
