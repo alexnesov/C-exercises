@@ -115,7 +115,6 @@ bool verifier(char c, char& r, int& score)
   if(c==r)
   {
     // marquer couleurs
-    score++;
     r = x;
     return true;
   }
@@ -135,8 +134,6 @@ void apparier(char c, char& r1, char& r2, char& r3, int& nb)
   bool verif2;
   bool verif3;
 
-  char x = 'x';
-
   verif1 = verifier(c,r1,nb);
   verif2 = verifier(c, r2, nb);
   verif3 = verifier(c, r3, nb);
@@ -144,17 +141,14 @@ void apparier(char c, char& r1, char& r2, char& r3, int& nb)
   if(verif1)
   {
     nb++;
-    r1 = x;
   }
   else if(verif2)
   {
     nb++;
-    r2 = x;
   }
   else if(verif3)
   {
     nb++;
-    r3 = x;
   }
 
 }
@@ -167,8 +161,8 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   bool verif_c2;
   bool verif_c3;
   bool verif_c4;
-  int score;  // verifier
-  int nb;     // apparier
+  int score(0);  // verifier
+  int nb(0);     // apparier
   char c;
 
   verif_c1 = verifier(c1, r1, score);
@@ -176,6 +170,24 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   verif_c3 = verifier(c3, r3, score);
   verif_c4 = verifier(c4, r4, score);
   
+  if(verif_c1==true)
+  {
+    score++;
+  }
+  if(verif_c2==true)
+  {
+    score++;
+  }
+  if(verif_c3==true)
+  {
+    score++;
+  }
+  if(verif_c4==true)
+  {
+    score++;
+  }
+  
+
   // # 
   char hash = '#';
   afficher(score, c=hash);
@@ -189,15 +201,15 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   {
     apparier(c1, r2, r3, r4, nb);
   }
-  else if(verif_c2!=true)
+  if(verif_c2!=true)
   {
     apparier(c2, r1, r3, r4, nb);
   }
-  else if(verif_c3!=true)
+  if(verif_c3!=true)
   {
     apparier(c3, r1, r2, r4, nb);
   }
-  else if(verif_c4)
+  if(verif_c4)
   {
     apparier(c4, r1, r2, r3, nb);
   }
@@ -210,12 +222,14 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
   afficher(nb=(4-nb-score),dash);
 
   cout << endl;
-/*   cout << "r1 : " << r1 << endl;
+  cout << "r1 : " << r1 << endl;
   cout << "r2 : " << r2 << endl;
   cout << "r3 : " << r3 << endl;
   cout << "r4 : " << r4 << endl;
- */
+ 
 
+  cout << endl;
+  cout << "SCORE : " << score << endl;
 
   // re-init
   score=0;
@@ -280,11 +294,11 @@ void jouer(int coups=8)
   c3 = lire_couleur();
   c4 = lire_couleur();
 
-/*   cout << "c1 : " << c1 << endl;
+  cout << "c1 : " << c1 << endl;
   cout << "c2 : " << c2 << endl;
   cout << "c3 : " << c3 << endl;
   cout << "c4 : " << c4 << endl; 
-  cout << endl; */
+  cout << endl; 
 
   afficher_coup(c1, c2, c3, c4,
                    r1, r2, r3, r4);
