@@ -60,10 +60,7 @@ void afficher(int nb, char c)
 
   while (nb-- > 0)
   {
-
-    // existing
-
-    cout << c; // ~
+    cout << c; 
   }
 }
 
@@ -129,9 +126,9 @@ bool verifier(char c, char& r, int& score)
   {
     // marquer couleurs
     score++;
+    nb++;
     r = x;
-
-
+    
     afficher(nb, hash);
     return true;
   }
@@ -199,7 +196,7 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
 
   final_score = 4 - score;
   afficher(final_score, dash);
-  cout << "Score : " << score << endl;
+
 
 }
 
@@ -207,7 +204,15 @@ void afficher_reponses(char c1, char c2, char c3, char c4,
 bool gagne(char c1, char c2, char c3, char c4,
            char r1, char r2, char r3, char r4)
 {
-  return false;
+  if( (c1==r1) && (c2==r2) && (c3==r3) && (c4==r4) )
+  {
+    return true;
+  } 
+  else
+  {
+    return false;
+  }
+  
 }
 
 // ======================================================================
@@ -226,6 +231,9 @@ void jouer(int coups=8)
 
   bool verifier_bool;
   bool win(false); 
+
+  int coups_init(coups);
+  int coups_effectues(0);
 
   r0 = tirer_couleur();
   r1 = tirer_couleur();
@@ -259,11 +267,12 @@ void jouer(int coups=8)
 
     verifier_bool = verifier(c1, r1, score);
 
-    win = gagne(c1, c2, c3, c4,
-          r1, r2, r3, r4);
+
 
     afficher_coup(c1, c2, c3, c4,
                    r1, r2, r3, r4);
+
+
 
     // Personnal verification
     // cout << "Verification : " << verifier_bool << endl;
@@ -286,9 +295,20 @@ void jouer(int coups=8)
     r3 = r3_temp;
     r4 = r4_temp;
 
+    win = gagne(c1, c2, c3, c4,
+          r1, r2, r3, r4);
+
+
   } while((win==false) && (coups>=0));
 
+  coups_effectues = coups_init-coups;
 
+  if(win==true)
+  {
+    message_gagne(coups_effectues);
+  }
+
+  
 }
 
 /*******************************************
