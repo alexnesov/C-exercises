@@ -69,11 +69,11 @@ void afficher(int nb, char c)
 
 // ---- prototype -------------------------------------------------------
 void afficher_reponses(char c1, char c2, char c3, char c4,
-                       char r1, char r2, char r3, char r4);
+                       char& r1, char& r2, char& r3, char& r4);
 
 // ======================================================================
 void afficher_coup(char c1, char c2, char c3, char c4,
-                   char r1, char r2, char r3, char r4)
+                   char& r1, char& r2, char& r3, char& r4)
 {
   afficher_couleurs(c1, c2, c3, c4);
   cout << " : ";
@@ -117,63 +117,86 @@ bool couleur_valide(char c)
 }
 
 // ======================================================================
-bool verifier(char c, char r1, int& score)
-{
-   if(c1==r1)
+bool verifier(char c, char& r, int& score)
+{   
+  char hash = '#'; // existing
+  char x = 'x';
+
+  int nb(0);
+
+  if(c==r)
   {
+    // marquer couleurs
     score++;
+    nb++;
+    r = x;
     return true;
   }
   else
   {
     return false;
   }
+
+  afficher(nb, hash);
 }
 
 // ======================================================================
-void apparier(char c, char& r1, char& r2, char& r3, int& score)
+void apparier(char c, char& r1, char& r2, char& r3, char& r4,int& score)
 {
-  bool veri;
+  char plus = '+'; // well positionned
+  char x = 'x';
 
-  veri = verifier(c, r1, score);
+  int nb(0);
 
-  if(veri==true)
+
+  if(c==r1)
   {
     score++;
+    nb++;
+    r1 = x;
   }
-
+  else if (c==r2)
+  {
+    score++;
+    nb++;
+    r2 = x;
+  }
+  else if (c==r3)
+  {
+    score++;
+    nb++;
+    r3 = x;
+  }
+  else if (c==r4)
+  {
+    score++;
+    nb++;
+    r4 = x;
+  }
+  
+  afficher(nb, plus);
 }
 
 // ======================================================================
 void afficher_reponses(char c1, char c2, char c3, char c4,
-                       char r1, char r2, char r3, char r4)
+                       char& r1, char& r2, char& r3, char& r4)
 {
-  int nb;
-  char c;
+  char dash = '-';
+  int final_score(0);
 
-  char plus = '+';
-  char hash = '#'; //well positionned
+  verifier(c1, r1, score);
+  verifier(c2, r2, score);
+  verifier(c3, r3, score);
+  verifier(c4, r4, score);
 
+  apparier(c1, r1, r2, r3, r4, score);
+  apparier(c2, r1, r2, r3, r4, score);
+  apparier(c3, r1, r2, r3, r4, score);
+  apparier(c4, r1, r2, r3, r4, score);
 
-    if(c1==r1)
-      {
-        cout << hash << endl;
-      }
-    else if(c2==r2)
-      {
-        cout << hash << endl;
-      }
-    else if(c3==r3)
-      {
-        cout << hash << endl;
-      }
-    else if(c4==r4)
-      {
-        cout << hash << endl;
-      }
-
-  apparier(c, r1, r2, r3, score);
-  afficher(nb=4,c);
+  final_score = 4 - score;
+  afficher(final_score, dash);
+  cout << "Score : " << score << endl;
 
 }
 
@@ -208,16 +231,24 @@ void jouer(int coups=8)
   r4 = tirer_couleur();
  
 
-  while((win==false) && (coups>=0))
+  do
   {
-    cout << "Coups restants : " << coups << endl;
 
     c1 = lire_couleur();
     c2 = lire_couleur();
     c3 = lire_couleur();
     c4 = lire_couleur();
+    
+    cout << endl;
+    cout << "r1 : " << r1 << endl;
+    cout << "r2 : " << r2 << endl;
+    cout << "r3 : " << r3 << endl;
+    cout << "r4 : " << r4 << endl;
+    cout << endl;
 
     coups--;
+    cout << "Coups restants : " << coups << endl;
+
     verifier_bool = verifier(c1, r1, score);
 
     win = gagne(c1, c2, c3, c4,
@@ -228,12 +259,24 @@ void jouer(int coups=8)
 
     // Personnal verification
     // cout << "Verification : " << verifier_bool << endl;
-    cout << "Score : " << score << endl;
     cout << "r1 : " << r1 << endl;
     cout << "r2 : " << r2 << endl;
     cout << "r3 : " << r3 << endl;
     cout << "r4 : " << r4 << endl;
-  }
+
+    cout << endl;
+
+    cout << "c1 : " << c1 << endl;
+    cout << "c2 : " << c2 << endl;
+    cout << "c3 : " << c3 << endl;
+    cout << "c4 : " << c4 << endl;
+
+    // Re-initilizations
+
+    score = 0;
+
+  } while((win==false) && (coups>=0));
+
 
 }
 
