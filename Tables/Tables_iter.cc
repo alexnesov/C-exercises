@@ -6,8 +6,11 @@ using namespace std;
 vector<double> tab(10);
 
 void ex_no_spell_indices(){
+    vector<int> u(7);
+    vector<int> v(u);
+
     cout << "The table contains: " << endl;
-    for(auto element : tab){
+    for(auto element : v){
         cout << element << " " << endl;
     }
 }
