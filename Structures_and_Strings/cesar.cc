@@ -4,7 +4,7 @@
 using namespace std;
 
 
-char decale(char c, char debut, int& decalage)
+char decale(char c, char debut, int decalage)
 {
     char new_char;
 
@@ -39,7 +39,7 @@ char code(char initialChar, int d)
 
 }
 
-string code(string initialString,int d)
+string code(string initialString, int d)
 {
 
     string final_string;
@@ -59,13 +59,23 @@ string code(string initialString,int d)
     
 }
 
+string decode(string toDecode, int d)
+{
+    string decoded;
+
+    d = d*-1;
+    decoded = code(toDecode,d);
+
+    return decoded;
+}
 
 int main()
 {
     int d;
     string final_output;
+    string decoded;
 
-    cout << "Type lag n°:" << endl;
+    cout << "Type lag n°: " << endl;
     cin >> d;
 
     cout << "Type string: " << endl;
@@ -76,6 +86,17 @@ int main()
     final_output = code(initialString, d);
     cout << "Encoded text: " << endl;
     cout << final_output << endl;
+
+    cout << "Type lag n°: (decode)" << endl;
+    int e;
+    cin >> e;
+
+    cout << "String to Decode: " << endl;
+    string toDecode;
+    cin.ignore();
+    getline(cin, toDecode);
+    decoded = decode(toDecode,e);
+    cout << decoded << endl;
 
     return 0;
 }
