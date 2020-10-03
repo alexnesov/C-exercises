@@ -4,13 +4,14 @@
 using namespace std;
 
 
-char decale(char c, char debut, int decalage)
+char decale(char c, char debut, int& decalage)
 {
     char new_char;
 
     while(decalage<0)
     {
-        decalage+26;
+        cout << "DECALAGE: " << decalage << " (negative)" << endl;
+        decalage = decalage+26;
     }
     
     new_char = debut + (((c - debut) + decalage) % 26);
@@ -39,7 +40,7 @@ char code(char initialChar, int d)
 
 }
 
-string code(string initialString, int d)
+string code(string initialString,int d)
 {
 
     string final_string;
@@ -60,7 +61,6 @@ string code(string initialString, int d)
 }
 
 
-
 int main()
 {
     int d;
@@ -72,7 +72,7 @@ int main()
     cout << "Type string: " << endl;
     cin >> initialString;
 
-    final_output = code(initialString,d);
+    final_output = code(initialString, d);
     cout << "Encoded text: " << endl;
     cout << final_output << endl;
 
