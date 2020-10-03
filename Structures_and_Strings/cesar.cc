@@ -65,11 +65,13 @@ int main()
     int d;
     string final_output;
 
-    string initialString;
     cout << "Type lag n°:" << endl;
     cin >> d;
+
     cout << "Type string: " << endl;
-    cin >> initialString;
+    string initialString;
+    cin.ignore();
+    getline(cin, initialString);
 
     final_output = code(initialString, d);
     cout << "Encoded text: " << endl;
