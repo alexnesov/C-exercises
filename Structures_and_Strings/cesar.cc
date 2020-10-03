@@ -63,7 +63,18 @@ string code(string initialString, int d)
 
 int main()
 {
+    int d;
+    string final_output;
+
     string initialString;
+    cout << "Type lag n°:" << endl;
+    cin >> d;
+    cout << "Type string: " << endl;
     cin >> initialString;
+
+    final_output = code(initialString,d);
+    cout << "Encoded text: " << endl;
+    cout << final_output << endl;
+
     return 0;
 }
