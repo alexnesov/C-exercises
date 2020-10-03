@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-using namespace std;
+
+#include <typeinfo>
 
 
 char decale(char c, char debut, int decalage)
@@ -18,31 +19,32 @@ char decale(char c, char debut, int decalage)
 }
 
 
-char code(char initialChar, int d)
+char code(char c, int d)
 {
-    char dec;
 
-    if((initialChar >= 'a') && (initialChar<='z'))
+    char decalee;
+
+    if((c >= 'a') && (c<='z'))
     {
-        d = decale(initialChar, 'a', d);
-        return d;
+        decalee = decale(c, 'a', d);
+        return decalee;
     }
-    else if ((initialChar >='A') && (initialChar <= 'Z'))
+    else if ((c >='A') && (c <= 'Z'))
     {
-        d = decale(initialChar, 'A', d);
-        return d;
+        decalee = decale(c, 'A', d);
+        return decalee;
     }
     else
     {
-        return initialChar;
+        return c;
     } 
 
 }
 
-string code(string initialString, int d)
+std::string code(std::string initialString, int d)
 {
 
-    string final_string;
+    std::string final_string="";
 
     for(size_t i(0); i <= initialString.size(); i++)
     {
@@ -54,14 +56,17 @@ string code(string initialString, int d)
         new_char = code(old_char,d);
         final_string.push_back(new_char);
     }
+    std::cout << final_string << std::endl;
+    final_string.pop_back();
+
 
     return final_string;
     
 }
 
-string decode(string toDecode, int d)
+std::string decode(std::string toDecode, int d)
 {
-    string decoded;
+    std::string decoded;
 
     d = d*-1;
     decoded = code(toDecode,d);
@@ -71,32 +76,7 @@ string decode(string toDecode, int d)
 
 int main()
 {
-    int d;
-    string final_output;
-    string decoded;
-
-    cout << "Type lag n°: " << endl;
-    cin >> d;
-
-    cout << "Type string: " << endl;
-    string initialString;
-    cin.ignore();
-    getline(cin, initialString);
-
-    final_output = code(initialString, d);
-    cout << "Encoded text: " << endl;
-    cout << final_output << endl;
-
-    cout << "Type lag n°: (decode)" << endl;
-    int e;
-    cin >> e;
-
-    cout << "String to Decode: " << endl;
-    string toDecode;
-    cin.ignore();
-    getline(cin, toDecode);
-    decoded = decode(toDecode,e);
-    cout << decoded << endl;
-
+    code("Fuyez manants", 4);
+    decode("Jycid qererxw", 4);
     return 0;
 }
