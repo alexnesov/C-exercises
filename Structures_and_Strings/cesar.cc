@@ -10,7 +10,6 @@ char decale(char c, char debut, int& decalage)
 
     while(decalage<0)
     {
-        cout << "DECALAGE: " << decalage << " (negative)" << endl;
         decalage = decalage+26;
     }
     
