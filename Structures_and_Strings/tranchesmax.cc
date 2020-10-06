@@ -51,12 +51,43 @@ int somme_consecutifs_max(vector<int> v)
     return biggestSum;
 }
 
+vector<size_t> lignes_max(vector<vector<int>> v)
+{
+    vector<size_t> lignes_max_vec;
+    int biggestSum_index(0);
+    int previous_biggestSum(0);
+    int biggestSum(0);
+    size_t iter;
+
+
+    for(size_t i(0); i<v.size();i++)
+    {
+        vector<int> line = v[i];
+        biggestSum = somme_consecutifs_max(line);
+        if(biggestSum>previous_biggestSum)
+        {
+            lignes_max_vec.clear();
+            lignes_max_vec.push_back(i);
+        }
+    }
+
+
+    return lignes_max_vec;
+}
+
 
 int main()
 {
-    int biggestSum_final;
-    vector<int> v({6,12,3,0,11});
+    //vector<int> v({30,100, 0,100,40,0,0,40,50});
 
+    vector<vector<int>> table(
+    {   {0,1,2,3,42 },
+        {4,5,6,0,0  },
+        {7,8,0,0,1  },
+        {9,0,1,0,15 } }
+    );
+
+    vector<size_t> final_max_st;
     // TESTING
 /*     cout << "INITIAL VECTOR: " << endl;
     for(auto j : v)
@@ -66,7 +97,7 @@ int main()
 
     cout << endl; */
 
-    biggestSum_final = somme_consecutifs_max(v);
-    cout << biggestSum_final << endl;
-    
+
+    final_max_st = lignes_max(table);
+
 }
