@@ -2,14 +2,6 @@
 #include <vector>
 using namespace std;
 
-// TESTING
-/* vector<vector<int>> table(
-{   {0,0,5,0,1  },
-    {2,0,1,3,0  },
-    {3,1,0,2,0  },
-    {1,0,1,0,2  } }
-); */
-
 
 int somme_consecutifs_max(vector<int> v)
 {
@@ -47,7 +39,6 @@ int somme_consecutifs_max(vector<int> v)
 vector<size_t> lignes_max(vector<vector<int>> v)
 {
     vector<size_t> lignes_max_vec;
-    int biggestSum_index(0);
     int previous_biggestSum(0);
     int biggestSum_line(0);
     int biggestSum_allLines(0);
@@ -88,28 +79,50 @@ vector<size_t> lignes_max(vector<vector<int>> v)
     return lignes_max_vec;
 }
 
+vector<vector<int>> tranches_max(vector<vector<int>> v)
+{
+    vector<vector<int>> tab_final;
+    vector<size_t> biggestSum_indices;
+
+    biggestSum_indices = lignes_max(v);
+    cout << endl;
+
+    for(int i : biggestSum_indices)
+    {
+        tab_final.insert(tab_final.end(),v[i]);
+    }
+    cout << endl;
+
+
+    return tab_final;
+}
 
 int main()
 {
     //vector<int> v({30,100, 0,100,40,0,0,40,50});
+    vector<vector<int>> tab_final;
 
     vector<vector<int>> table(
-    {   {0,1,2,3,42,0,100,50 },
-        {4,5,6,0,0,100,50  },
-        {7,8,0,0,100,40  },
+    {   {0,1,2,3,42,0,0,0 },
+        {4,5,6,0,200,100,50  },
+        {7,8,200,0,100,40  },
         {100,1,0,100,40 } }
     );
 
-    vector<size_t> final_max_st;
 
+    tab_final = tranches_max(table);
 
-    final_max_st = lignes_max(table);
+    cout << "tab_final: " << endl;
 
-    for(auto i : final_max_st)
-    {
-        cout<<i;
-    }
-    
+    for(auto i : tab_final)
+        {
+            for(auto j : i)
+            {
+                cout << j;
+            }
+        cout << endl;
+        }
+
 
 
 }
