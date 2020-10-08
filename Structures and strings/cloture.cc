@@ -6,12 +6,64 @@ using namespace std;
  * Complétez le programme à partir d'ici.
  *******************************************/
 
-          cout << "Votre carte du terrain n'est pas convexe par lignes :" << endl;
-          cout << "bord extérieur entrant trouvé en position [";
-          cout << "][";
-          cout << "]" << endl;
+typedef vector<vector<int>> Carte;
+bool ok(true);
 
-    cout << "Votre carte du terrain ne contient pas que des 0 et des 1." << endl;
+struct Position
+{
+  int i; // line
+  int j; // column
+}
+
+  cout << "Votre carte du terrain n'est pas convexe par lignes :" << endl;
+  cout << "bord extérieur entrant trouvé en position [";
+  cout << "][";
+  cout << "]" << endl;
+
+  cout << "Votre carte du terrain ne contient pas que des 0 et des 1." << endl;
+
+bool binaire(Carte const& carte)
+{
+
+    bool stop(false);
+
+    for(auto l : carte)
+    { 
+        if(stop==true)
+        {
+            break;
+        }
+        {
+            for(auto i : l)
+            {
+                if((i!=0) && (i!=1))
+                {
+                    cout << "DIFF";
+                    stop = true;
+                    ok = false;
+                    break;
+                }
+                cout << i;
+            }
+        }
+    }
+                return ok;
+}
+
+
+void affiche(Carte const& carte)
+{
+  for(auto l : carte)
+  {
+    for(auto c : l)
+    {
+      cout << c;
+    }
+    cout << endl;
+    cout << "----" << endl;
+  }
+}
+
 
 /*******************************************
  * Ne rien modifier après cette ligne.
