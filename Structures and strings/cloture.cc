@@ -46,6 +46,7 @@ bool binaire(Carte const& carte)
                 return ok;
 }
 
+#include <algorithm>
 
 void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
 {
@@ -54,13 +55,48 @@ void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
   // For every line, if n_diff >2, then all 0's between 
   // first diff and last diff transformed to 1.
 
-  for(size_t l(0);l<carte.size();l++)
+
+
+  // When only ones --> Following error: "core dumped(segmentation fault)"
+  // So, need to test if line full of 0 or 1. If full, then replace func. 
+  // no called, otherwise func. creates troubles.
+
+  // Check which lines don't represent water
+  vector<int> empty_vec_index;
+  int index_n(0);
+
+  for(auto i : all_difs)
   {
-    for(size_t i(all_difs[l].front()); i < all_difs[l].back(); ++i)
+    if(i.empty())
+    {
+      empty_vec_index.push_back(index_n);
+    }
+    index_n++;
+  }
+
+  // Print empty vec
+  for(auto i : empty_vec_index)
+  {
+    cout << "EMPTY: " << i << endl;
+  }
+
+  for(size_t l(0);l<carte.size();l++) // Iterate over rows
+  {
+    if(find(empty_vec_index.begin(), empty_vec_index.end(),l) != empty_vec_index.end())
+    {
+      cout << endl;
+      cout << "FOUND!" << endl;
+      continue;
+    }
+
+    for(size_t i(all_difs[l].front()); i < all_difs[l].back(); ++i) // Iterate over columns
     {
       carte[l][i] = 1;
     } 
   }
+
+
+
 } 
 
 bool verifie_et_modifie(Carte& carte)
@@ -127,7 +163,7 @@ bool verifie_et_modifie(Carte& carte)
       cout << endl;                                     // REPR_001
     } ///// First loop
 
-    //replace_lakes(carte=carte, all_difs=all_difs);
+    replace_lakes(carte=carte, all_difs=all_difs);
 
     // Print all_difs:
     cout << endl;
@@ -167,7 +203,7 @@ void affiche(Carte const& carte)
 
 int main()
 {
-/*   Carte carte = {
+  Carte carte = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -197,26 +233,14 @@ int main()
     {0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-  }; */
-  Carte carte = {
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
   };
-
-/* vector<vector<int>> vec1(
-  { {0,0,1,1,0,0,0,1,0,0},
-    {1,1,1,0,0,0,1,0,1,0},
-    {0,1,1,1,1,0,1,0,1,0}
-  } ); */
 
 
   cout << "Carte au départ :" << endl;
   affiche(carte);
   if (verifie_et_modifie(carte)) {
     cout << "Carte après modification :" << endl;
-   // affiche(carte);
+    affiche(carte);
 /*     cout << "Il vous faut " << longueur_cloture(carte)
          << " mètres de clôture pour votre terrain."
          << endl; */
