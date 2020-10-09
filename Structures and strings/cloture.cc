@@ -56,8 +56,6 @@ void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
 
   for(size_t l(0);l<carte.size();l++)
   {
-    cout << endl;
-    cout << "L: " << l << endl;
     for(size_t i(all_difs[l].front()); i < all_difs[l].back(); ++i)
     {
       carte[l][i] = 1;
@@ -70,10 +68,14 @@ bool verifie_et_modifie(Carte& carte)
     vector<int> indices;
     vector<vector<int>> all_difs;
     bool init(true);
-    int prev(99);
+    int prev(0);
     int vec_col(carte[0].size());
     int vec_line(carte.size());
     int vec_colconst = vec_col;
+    
+    cout << "N° cols: " << vec_col << endl;
+    cout << "N° lines: " << vec_line << endl;
+    cout << endl;
     
     bool test(true);
 
@@ -107,20 +109,35 @@ bool verifie_et_modifie(Carte& carte)
                   }
             }
           vec_col--;
-          cout << i;
+          cout << i;                                    // REPR_001
         } ////// Second loop
 
       all_difs.insert(all_difs.end(),indices);
       //re-initilizations
       vec_line = carte[0].size();
+      vec_col = carte[0].size();
       indices.clear();
       col_pos = 0;
-      vec_col = carte[0].size();
       init = true;
+      cout << endl;                                     // REPR_001
     } ///// First loop
 
-    replace_lakes(carte=carte, all_difs=all_difs);
+    //replace_lakes(carte=carte, all_difs=all_difs);
+
+    // Print all_difs:
+    cout << endl;
+    for(auto i : all_difs)
+    {
+      for(auto j : i)
+      {
+        cout << j;
+      }
+      cout << endl;
+    }
+
     return true;
+
+
 
   }
 }
@@ -134,8 +151,10 @@ void affiche(Carte const& carte)
       cout << c;
     }
     cout << endl;
-    cout << "----" << endl;
   }
+  cout << endl;
+  cout << "----";
+  cout << endl;
 }
 
 
@@ -145,7 +164,7 @@ void affiche(Carte const& carte)
 
 int main()
 {
-  Carte carte = {
+/*   Carte carte = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -175,13 +194,26 @@ int main()
     {0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+  }; */
+  Carte carte = {
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
   };
+
+/* vector<vector<int>> vec1(
+  { {0,0,1,1,0,0,0,1,0,0},
+    {1,1,1,0,0,0,1,0,1,0},
+    {0,1,1,1,1,0,1,0,1,0}
+  } ); */
+
 
   cout << "Carte au départ :" << endl;
   affiche(carte);
   if (verifie_et_modifie(carte)) {
     cout << "Carte après modification :" << endl;
-    affiche(carte);
+   // affiche(carte);
 /*     cout << "Il vous faut " << longueur_cloture(carte)
          << " mètres de clôture pour votre terrain."
          << endl; */
