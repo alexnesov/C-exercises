@@ -67,6 +67,65 @@ void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
   }
 } 
 
+bool verifie_et_modifie(Carte& carte)
+{
+    vector<int> indices;
+    vector<vector<int>> all_difs;
+    bool init(true);
+    int prev(99);
+    int vec_col(vec1[0].size());
+    int vec_line(vec1.size());
+    int vec_colconst = vec_col;
+    
+    bool test(true);
+
+    test = binaire(carte);
+    if(test==false)
+    {
+        cout << "Votre carte du terrain ne contient pas que des 0 et des 1." << endl;
+        return false;
+    }
+    else
+    {
+      for(auto v : carte)
+      { ///// First loop
+      int col_pos(0);
+      
+      for(auto i : v)
+        { ////// Second loop
+          
+            if(init==true)
+            {
+              prev = i;
+              init = false;
+            }
+            else
+            {
+                  if(i!=prev)
+                  {
+                    // pushing back the column indices into vector names "indices"
+                    col_pos = vec_colconst - vec_col;
+                    indices.push_back(col_pos);
+                  }
+            }
+          vec_col--;
+          cout << i;
+        } ////// Second loop
+
+      all_difs.insert(all_difs.end(),indices);
+      //re-initilizations
+      vec_line = vec1[0].size();
+      indices.clear();
+      col_pos = 0;
+      vec_col = vec1[0].size();
+      init = true;
+    } ///// First loop
+
+    replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs);
+    return true;
+
+  }
+}
 
 void affiche(Carte const& carte)
 {
