@@ -65,21 +65,23 @@ void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
 
 bool verifie_et_modifie(Carte& carte)
 {
-    vector<int> indices;
-    vector<vector<int>> all_difs;
-    bool init(true);
-    int prev(0);
-    int vec_col(carte[0].size());
-    int vec_line(carte.size());
-    int vec_colconst = vec_col;
-    
-    cout << "N° cols: " << vec_col << endl;
-    cout << "N° lines: " << vec_line << endl;
-    cout << endl;
-    
-    bool test(true);
+  vector<int> indices;
+  vector<vector<int>> all_difs;
+  bool init(true);
+  int prev(0);
+  int vec_col(carte[0].size());
+  int vec_line(carte.size());
+  int vec_colconst = vec_col;
+  bool test(true);
+  int col_pos(0);
+  
+  cout << "N° cols: " << vec_col << endl;
+  cout << "N° lines: " << vec_line << endl;
+  cout << "vec_colconst: " << vec_colconst << endl;
+  cout << endl;
+  
+  test = binaire(carte);
 
-    test = binaire(carte);
     if(test==false)
     {
         cout << "Votre carte du terrain ne contient pas que des 0 et des 1." << endl;
@@ -87,9 +89,9 @@ bool verifie_et_modifie(Carte& carte)
     }
     else
     {
+
       for(auto v : carte)
       { ///// First loop
-      int col_pos(0);
       
       for(auto i : v)
         { ////// Second loop
@@ -105,7 +107,10 @@ bool verifie_et_modifie(Carte& carte)
                   {
                     // pushing back the column indices into vector names "indices"
                     col_pos = vec_colconst - vec_col;
+                    //cout << endl;
+                    //cout << "COL POS: " << col_pos;
                     indices.push_back(col_pos);
+                    prev=i;
                   }
             }
           vec_col--;
@@ -130,14 +135,12 @@ bool verifie_et_modifie(Carte& carte)
     {
       for(auto j : i)
       {
-        cout << j;
+        cout << j << ", ";
       }
       cout << endl;
     }
 
     return true;
-
-
 
   }
 }
