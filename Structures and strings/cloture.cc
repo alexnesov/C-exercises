@@ -13,14 +13,12 @@ struct Position
 {
   int i; // line
   int j; // column
-}
+};
 
-  cout << "Votre carte du terrain n'est pas convexe par lignes :" << endl;
+/*   cout << "Votre carte du terrain n'est pas convexe par lignes :" << endl;
   cout << "bord extérieur entrant trouvé en position [";
   cout << "][";
-  cout << "]" << endl;
-
-  cout << "Votre carte du terrain ne contient pas que des 0 et des 1." << endl;
+  cout << "]" << endl; */
 
 bool binaire(Carte const& carte)
 {
@@ -73,8 +71,8 @@ bool verifie_et_modifie(Carte& carte)
     vector<vector<int>> all_difs;
     bool init(true);
     int prev(99);
-    int vec_col(vec1[0].size());
-    int vec_line(vec1.size());
+    int vec_col(carte[0].size());
+    int vec_line(carte.size());
     int vec_colconst = vec_col;
     
     bool test(true);
@@ -114,14 +112,14 @@ bool verifie_et_modifie(Carte& carte)
 
       all_difs.insert(all_difs.end(),indices);
       //re-initilizations
-      vec_line = vec1[0].size();
+      vec_line = carte[0].size();
       indices.clear();
       col_pos = 0;
-      vec_col = vec1[0].size();
+      vec_col = carte[0].size();
       init = true;
     } ///// First loop
 
-    replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs);
+    replace_lakes(carte=carte, all_difs=all_difs);
     return true;
 
   }
@@ -184,9 +182,9 @@ int main()
   if (verifie_et_modifie(carte)) {
     cout << "Carte après modification :" << endl;
     affiche(carte);
-    cout << "Il vous faut " << longueur_cloture(carte)
+/*     cout << "Il vous faut " << longueur_cloture(carte)
          << " mètres de clôture pour votre terrain."
-         << endl;
+         << endl; */
   }
 
   return 0;
