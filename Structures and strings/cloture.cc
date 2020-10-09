@@ -38,17 +38,34 @@ bool binaire(Carte const& carte)
             {
                 if((i!=0) && (i!=1))
                 {
-                    cout << "DIFF";
                     stop = true;
                     ok = false;
                     break;
                 }
-                cout << i;
             }
         }
     }
                 return ok;
 }
+
+
+void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
+{
+  // l = line index
+  // Iterate of all lines and get index for each line.
+  // For every line, if n_diff >2, then all 0's between 
+  // first diff and last diff transformed to 1.
+
+  for(size_t l(0);l<carte.size();l++)
+  {
+    cout << endl;
+    cout << "L: " << l << endl;
+    for(size_t i(all_difs[l].front()); i < all_difs[l].back(); ++i)
+    {
+      carte[l][i] = 1;
+    } 
+  }
+} 
 
 
 void affiche(Carte const& carte)
