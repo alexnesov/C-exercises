@@ -22,29 +22,21 @@ struct Position
 
 bool binaire(Carte const& carte)
 {
+  bool true_false(true);
 
-    bool stop(false);
+  for(auto l : carte)
+  { 
+    for(auto i : l)
+        {
+          if(i!=0 && i!=1)
+          {   
+              true_false = false;
+          }
+        }
+    }
+  return true_false;
 
-    for(auto l : carte)
-    { 
-        if(stop==true)
-        {
-            break;
-        }
-        {
-            for(auto i : l)
-            {
-                if((i!=0) && (i!=1))
-                {
-                    stop = true;
-                    ok = false;
-                    break;
-                }
-            }
-        }
-    } // For loop
-                return ok;
-}
+  } // For loop
 
 #include <algorithm>
 
@@ -101,12 +93,10 @@ bool verifie_et_modifie(Carte& carte)
 {
   vector<int> indices;
   bool init(true);
-  int prev(0);
   int vec_col(carte[0].size());
   int vec_line(carte.size());
   int vec_colconst = vec_col;
   bool test(true);
-  int col_pos(0);
   
 /*   cout << "N° cols: " << vec_col << endl;
   cout << "N° lines: " << vec_line << endl;
@@ -125,9 +115,11 @@ bool verifie_et_modifie(Carte& carte)
 
       for(auto v : carte)
       { ///// First loop
+       int col_pos(0);
       
       for(auto i : v)
         { ////// Second loop
+            int prev(0);
           
             if(init==true)
             {
@@ -162,16 +154,6 @@ bool verifie_et_modifie(Carte& carte)
 
     replace_lakes(carte=carte, all_difs=all_difs);
 
-    // Print all_difs:
-/*     cout << endl;
-    for(auto i : all_difs)
-    {
-      for(auto j : i)
-      {
-        cout << j << ", ";
-      }
-      cout << endl;
-    } */
 
     return true;
   }
@@ -197,13 +179,11 @@ void affiche(Carte const& carte)
 double longueur_cloture(Carte const& carte, double echelle = 2.5)
 {
   int index(0);
-  int beg(0);
-  int end(0);
-  int vec_line(carte.size());
+  double vec_line(carte.size());
 
-  vector<int> tup;
-  vector<int> reversed;
-  vector<vector<int>> all_tups;
+  vector<double> tup;
+  vector<double> reversed;
+  vector<vector<double>> all_tups;
 
   for(auto line : carte)
   {
@@ -240,12 +220,12 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
 
   } // LOOP
 
-  int prev_left(0);
-  int prev_right(0);
+  double prev_left(0.0);
+  double prev_right(0.0);
   bool init(true);
-  int sum(0);
-  int left(0);
-  int right(0);
+  double sum(0.0);
+  double left(0.0);
+  double right(0.0);
 
   //cout << endl;
   for(auto i : all_tups)
@@ -276,21 +256,16 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
 
       sum = sum + right + left;
       
-/*       cout << i[0];
-      cout << i[1] << endl;
- */
       prev_left = i[0];
       prev_right = i[1];
 
   }
-/*   cout << endl;
-  cout << "SUM: " << sum;
-  cout << endl; */
-  double length(0);
+
+  double length(0.0);
   int vec_col(carte[0].size());
 
-  int top_carte(0);
-  int bottom_carte(0);
+  double top_carte(0.0);
+  double bottom_carte(0.0);
 
   for(auto top:carte[0])
   {
@@ -308,10 +283,8 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
     }
   }
 
-/*   cout << "TOP CARTE: " << top_carte << endl;
-  cout << "BOTTOM CARTE: " << bottom_carte << endl;
- */
-  length = (vec_line * 2 + sum + top_carte + bottom_carte)*2.5;
+
+  length = 0.00+((vec_line * 2 + sum + top_carte + bottom_carte)*2.5);
   return length;
 } 
 
@@ -341,7 +314,7 @@ bool convexite_lignes(Carte& carte)
 
 int main()
 {
-/*   Carte carte = {
+  Carte carte = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -371,7 +344,7 @@ int main()
     {0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-  }; */
+  };
 
 /*   Carte carte = {
       {1,1,1,1,0,0,0,0},
@@ -380,12 +353,12 @@ int main()
       {1,1,1,1,1,1,0,0},
       {0,0,0,0,1,0,0,1}
       }; */
-
+/* 
       Carte carte = {
-      {0,1,1,1,0},
+      {0,5,1,1,0},
       {0,1,0,1,0},
       {0,1,1,1,0}
-      };
+      }; */
 
   cout << "Carte au départ :" << endl;
   affiche(carte);
