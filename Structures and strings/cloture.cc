@@ -75,10 +75,10 @@ void replace_lakes(vector<vector<int>>& carte, vector<vector<int>> all_difs)
   }
 
   // Print empty vec
-  for(auto i : empty_vec_index)
+/*   for(auto i : empty_vec_index)
   {
     cout << "EMPTY: " << i << endl;
-  }
+  } */
 
   for(size_t l(0);l<carte.size();l++) // Iterate over rows
   {
@@ -108,10 +108,10 @@ bool verifie_et_modifie(Carte& carte)
   bool test(true);
   int col_pos(0);
   
-  cout << "N° cols: " << vec_col << endl;
+/*   cout << "N° cols: " << vec_col << endl;
   cout << "N° lines: " << vec_line << endl;
   cout << "vec_colconst: " << vec_colconst << endl;
-  cout << endl;
+  cout << endl; */
   
   test = binaire(carte);
 
@@ -147,7 +147,7 @@ bool verifie_et_modifie(Carte& carte)
                   }
             }
           vec_col--;
-          cout << i;                                    // REPR_001
+          // cout << i;                                    // REPR_001
         } ////// Second loop
 
       all_difs.insert(all_difs.end(),indices);
@@ -157,13 +157,13 @@ bool verifie_et_modifie(Carte& carte)
       indices.clear();
       col_pos = 0;
       init = true;
-      cout << endl;                                     // REPR_001
+      // cout << endl;                                     // REPR_001
     } ///// First loop
 
     replace_lakes(carte=carte, all_difs=all_difs);
 
     // Print all_difs:
-    cout << endl;
+/*     cout << endl;
     for(auto i : all_difs)
     {
       for(auto j : i)
@@ -171,7 +171,7 @@ bool verifie_et_modifie(Carte& carte)
         cout << j << ", ";
       }
       cout << endl;
-    }
+    } */
 
     return true;
   }
@@ -247,7 +247,7 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
   int left(0);
   int right(0);
 
-  cout << endl;
+  //cout << endl;
   for(auto i : all_tups)
   {
       if(init==true)
@@ -276,16 +276,16 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
 
       sum = sum + right + left;
       
-      cout << i[0];
+/*       cout << i[0];
       cout << i[1] << endl;
-
+ */
       prev_left = i[0];
       prev_right = i[1];
 
   }
-  cout << endl;
+/*   cout << endl;
   cout << "SUM: " << sum;
-  cout << endl;
+  cout << endl; */
   double length(0);
   int vec_col(carte[0].size());
 
@@ -308,10 +308,10 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
     }
   }
 
-  cout << "TOP CARTE: " << top_carte << endl;
+/*   cout << "TOP CARTE: " << top_carte << endl;
   cout << "BOTTOM CARTE: " << bottom_carte << endl;
-
-  length = vec_line * 2 + sum + top_carte + bottom_carte;
+ */
+  length = (vec_line * 2 + sum + top_carte + bottom_carte)*2.5;
   return length;
 } 
 
@@ -373,12 +373,18 @@ int main()
     {0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
   }; */
 
-  Carte carte = {
+/*   Carte carte = {
       {1,1,1,1,0,0,0,0},
       {0,0,1,0,1,0,0,0},
       {1,1,0,1,0,0,0,0},
       {1,1,1,1,1,1,0,0},
       {0,0,0,0,1,0,0,1}
+      }; */
+
+      Carte carte = {
+      {0,1,1,1,0},
+      {0,1,0,1,0},
+      {0,1,1,1,0}
       };
 
   cout << "Carte au départ :" << endl;
