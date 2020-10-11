@@ -13,11 +13,13 @@ struct Position
 {
   int i; // row
   int j; // column
-};
+}; 
 
+Position test = {4,4};
 
 bool binaire(Carte const& carte)
 {
+
   bool true_false(true);
   int x(0);
   for(auto row : carte)
@@ -54,7 +56,7 @@ void affiche(Carte const& carte)
   cout << endl;
 }
 
-void test_display(Matrix v)
+/* void test_display(Matrix v)
 {
   //cout << "Size of plan (n. cols): " << carte[0].size() << endl;
 
@@ -68,7 +70,7 @@ void test_display(Matrix v)
   }
 
   cout << endl;
-}
+} */
 
 Matrix mapOnes(Carte carte)
 {
@@ -154,6 +156,23 @@ bool verifie_et_modifie(Carte& carte)
   }
 }
 
+void ajoute_unique(vector<int>& ensemble, int valeur)
+{
+
+}
+
+
+bool convexite_lignes(Carte& carte, vector<int> const& labels_bords)
+{
+  return true;
+}
+
+
+bool convexite_lignes(Carte& carte)
+{
+  return false;
+}
+
 double longueur_cloture(Carte const& carte, double echelle = 2.5)
 {
   Matrix FirstAndLast1s;
@@ -176,6 +195,14 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
   int sum(0);
   int left(0);
   int right(0);
+
+vector<int> v(5,4);
+Matrix random = {
+    {0,0,0,0},
+    {1,1,1,1}};
+
+ajoute_unique(v, 9);
+convexite_lignes(random,v);
 
   for(auto i : FirstAndLast1s)
   {
@@ -220,22 +247,7 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
           cout << "]" << endl;
  */
 
-void ajoute_unique(vector<int>& ensemble, int valeur)
-{
 
-}
-
-
-bool convexite_lignes(Carte& carte, vector<int> const& labels_bords)
-{
-  return true;
-}
-
-
-bool convexite_lignes(Carte& carte)
-{
-  return true;
-}
 
 /*******************************************
  * Ne rien modifier après cette ligne.
