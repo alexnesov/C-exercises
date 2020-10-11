@@ -41,11 +41,11 @@ bool binaire(Carte const& carte)
 
 void affiche(Carte const& carte)
 {
-  for(auto l : carte)
+  for(auto row : carte)
   {
-        for(auto c : l)
+        for(auto col : row)
         {
-          cout << c;
+          cout << col;
         }
         cout << endl;
   }
@@ -114,13 +114,21 @@ Matrix mapFirstAndLast1(Matrix all_ones)
     FirstAndLast1.insert(FirstAndLast1.end(),tuples);
     tuples.clear();
   } 
-  test_display(FirstAndLast1);
+  // test_display(FirstAndLast1);
   return FirstAndLast1;
 }
 
 void modification(Carte& carte, Matrix ones)
 {
 
+  for(size_t row(0);row<carte.size();row++)
+  {
+    for(size_t col(ones[row].front()); col <= ones[row].back();++col)
+    {
+      carte[row][col]=1;
+    }
+  }
+  affiche(carte);
 }
 
 bool verifie_et_modifie(Carte& carte)
@@ -142,9 +150,7 @@ bool verifie_et_modifie(Carte& carte)
     modification(carte, FirstAndLast1s);
   }
   
-  
   return true; // to change  
-
 }
 
 /*           cout << "Votre carte du terrain n'est pas convexe par lignes :" << endl;
@@ -160,7 +166,7 @@ bool verifie_et_modifie(Carte& carte)
 int main()
 {
   Carte carte = {
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,1,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
