@@ -8,7 +8,6 @@ using namespace std;
 
 typedef vector<vector<int>> Carte;
 typedef vector<vector<int>> Matrix;
-Matrix FirstAndLast1s;
 
 struct Position
 {
@@ -102,12 +101,13 @@ Matrix mapOnes(Carte carte)
 Matrix mapFirstAndLast1(Matrix all_ones)
 {
   Matrix FirstAndLast1;
-  int first(0);
-  int last(0);
   vector<int> tuples;
 
   for(size_t i(0);i<all_ones.size();i++)
   {
+    int first(0);
+    int last(0);
+    
     first = all_ones[i][0];
     last = all_ones[i].back();
     tuples.push_back(first);
@@ -115,7 +115,7 @@ Matrix mapFirstAndLast1(Matrix all_ones)
     FirstAndLast1.insert(FirstAndLast1.end(),tuples);
     tuples.clear();
   } 
-  test_display(FirstAndLast1);
+  // test_display(FirstAndLast1);
   return FirstAndLast1;
 }
 
@@ -137,6 +137,8 @@ bool verifie_et_modifie(Carte& carte)
   // Verification
   bool bool_binaire;
   bool_binaire = binaire(carte);
+  Matrix FirstAndLast1s;
+
   if(bool_binaire==false)
   {
     cout << "Votre carte du terrain ne contient pas que des 0 et des 1." << endl;
@@ -154,20 +156,26 @@ bool verifie_et_modifie(Carte& carte)
 
 double longueur_cloture(Carte const& carte, double echelle = 2.5)
 {
+  Matrix FirstAndLast1s;
+  Matrix all_ones;
+
   double totalLength(0.0);
-  double n_rows(carte.size());
-  double len_top(0.0);
-  double len_bottom(0.0);
+  int n_rows(carte.size());
+  int len_top(0);
+  int len_bottom(0);
+
+  all_ones = mapOnes(carte);
+  FirstAndLast1s = mapFirstAndLast1(all_ones);
 
   len_top = FirstAndLast1s[0][1]+1 - FirstAndLast1s[0][0];
   len_bottom = FirstAndLast1s.back()[1]+1 - FirstAndLast1s.back()[0];
 
-  double prev_left(0.0);
-  double prev_right(0.0);
+  int prev_left(0);
+  int prev_right(0);
   bool init(true);
-  double sum(0.0);
-  double left(0.0);
-  double right(0.0);
+  int sum(0);
+  int left(0);
+  int right(0);
 
   for(auto i : FirstAndLast1s)
   {
@@ -198,7 +206,11 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
       prev_right = i[1];
   }
 
-  totalLength = (2*n_rows + sum + len_top + len_bottom)*echelle;
+  totalLength = 2 * n_rows;
+  totalLength = totalLength + sum;
+  totalLength = totalLength + len_top;
+  totalLength = totalLength + len_bottom;
+  totalLength = totalLength * echelle;
   return totalLength;
 }
 
@@ -207,6 +219,23 @@ double longueur_cloture(Carte const& carte, double echelle = 2.5)
           cout << "][";
           cout << "]" << endl;
  */
+
+void ajoute_unique(vector<int>& ensemble, int valeur)
+{
+
+}
+
+
+bool convexite_lignes(Carte& carte, vector<int> const& labels_bords)
+{
+  return true;
+}
+
+
+bool convexite_lignes(Carte& carte)
+{
+  return true;
+}
 
 /*******************************************
  * Ne rien modifier après cette ligne.
